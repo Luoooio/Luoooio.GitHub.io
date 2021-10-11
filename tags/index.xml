@@ -28,6 +28,24 @@
     </item>
     
     <item>
+      <title>CVE</title>
+      <link>/tags/cve/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/cve/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>中间件漏洞</title>
+      <link>/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>域</title>
       <link>/tags/%E5%9F%9F/</link>
       <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>

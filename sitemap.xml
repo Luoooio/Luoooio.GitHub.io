@@ -32,11 +32,23 @@
     <loc>/tags/%E7%A5%A8%E6%8D%AE/</loc>
     <lastmod>2021-10-11T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/tags/cve/</loc>
+    <lastmod>2021-10-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/cve-2021-41773-apache-httpd-2.4.49/</loc>
+    <lastmod>2021-10-10T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</loc>
     <lastmod>2020-10-10T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/</loc>
+    <lastmod>2021-10-10T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/tags/%E5%9F%9F/</loc>
     <lastmod>2020-10-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/%E5%A4%8D%E7%8E%B0/</loc>
+    <lastmod>2021-10-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/docs/example-doc/chapter-1/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
@@ -58,8 +70,6 @@
   </url><url>
     <loc>/docs/example-doc/nested-chapter/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/cve-2021-41773-apache-httpd-2.4.49/</loc>
   </url><url>
     <loc>/content/</loc>
   </url><url>
