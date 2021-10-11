@@ -3,22 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/authors/</loc>
-    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+    <lastmod>2020-10-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/diagram-support/</loc>
-    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+    <loc>/categories/</loc>
+    <lastmod>2020-10-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/authors/example-author/</loc>
-    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+    <loc>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</loc>
+    <lastmod>2020-10-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/authors/oulaa/</loc>
+    <lastmod>2020-10-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/</loc>
-    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+    <lastmod>2020-10-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/</loc>
-    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+    <lastmod>2020-10-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/math-support/</loc>
-    <lastmod>2020-11-20T22:52:56+08:00</lastmod>
+    <loc>/tags/</loc>
+    <lastmod>2020-10-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/%E5%9F%9F/</loc>
+    <lastmod>2020-10-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/%E5%9F%9F%E6%B8%97%E9%80%8F/</loc>
+    <lastmod>2020-10-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/%E7%88%86%E7%A0%B4/</loc>
+    <lastmod>2020-10-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/docs/example-doc/chapter-1/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
@@ -41,72 +53,10 @@
     <loc>/docs/example-doc/nested-chapter/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/categories/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/featured-image/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/image/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/authors/oulaa/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/series/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/themes/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/series/themes-guide/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/%E5%9F%9F/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/%E5%9F%9F%E6%B8%97%E9%80%8F/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/css/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <loc>/content/</loc>
   </url><url>
     <loc>/authors/hugo-authors/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/html/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/markdown/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/markdown-syntax/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/syntax/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/themes/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/placeholder-text/</loc>
-    <lastmod>2019-03-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/text/</loc>
-    <lastmod>2019-03-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/emoji/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/emoji-support/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/content/</loc>
+    <loc>/series/</loc>
   </url>
 </urlset>

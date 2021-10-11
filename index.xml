@@ -8,20 +8,20 @@
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Wed, 31 Mar 2021 13:11:22 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Diagram Support</title>
-      <link>/posts/diagram-support/</link>
-      <pubDate>Wed, 31 Mar 2021 13:11:22 +0800</pubDate>
+      <title>Kerbrute域内用户枚举与密码喷洒</title>
+      <link>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>/posts/diagram-support/</guid>
+      <guid>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</guid>
       <description>根据 &amp;ldquo;kerberos篇&amp;rdquo;的第一步AS_REQ，其发送了用户名，在第二步的校验包AS_REP中由于用户存在、用户不存在与密码错误返回的包不一样，所以可以用来枚举用户名。
  用户名不存在：error-code: eRR-C-PRINCIPAL-UNKNOWN (6)
 密码错误：error-code: eRR-PREAUTH-REQUIRED (25) KDC_ERR_PREAUTH_FAILED(24) udp/tcp
  工具：
 https://github.com/3gstudent/pyKerbrute
 https://3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-%E9%80%9A%E8%BF%87Kerberos-pre-auth%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8F%A3%E4%BB%A4%E7%88%86%E7%A0%B4
-1. 用户名枚举： EnumADUser.py &amp;lt;domainControlerAddr&amp;gt; &amp;lt;domainName&amp;gt; &amp;lt;mode&amp;gt; &amp;lt;mode&amp;gt;: tcp or udp Eg. EnumADUser.py 192.168.1.1 test.com user.txt tcp 2. 密码喷洒 由于域内策略，连续密码猜测会导致帐户被锁定，爆破的时候一般采用喷洒式的攻击，即密码一样，跑不同的用户名。 关于口令次数限制，默认为 5 次，具体设置在
+1. 用户名枚举： EnumADUser.py &amp;lt;domainControlerAddr&amp;gt; &amp;lt;domainName&amp;gt; &amp;lt;mode&amp;gt; &amp;lt;mode&amp;gt;: tcp or udp Eg. EnumADUser.py 192.168.1.1 test.com user.txt tcp  2. 密码喷洒 由于域内策略，连续密码猜测会导致帐户被锁定，爆破的时候一般采用喷洒式的攻击，即密码一样，跑不同的用户名。 关于口令次数限制，默认为 5 次，具体设置在
 \\&amp;lt;DOMAIN&amp;gt;\SYSVOL\&amp;lt;DOMAIN&amp;gt;\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl.inf中
 （1）DomainPasswordSpray  用 PowerShell 编写的工具，用于对域用户执行密码喷洒攻击。默认情况下，它将利用 LDAP 从域中导出用户列表，然后扣掉被锁定的用户，再用固定密码进行密码喷洒。
   缺点是不能在域外使用。
@@ -32,15 +32,6 @@ https://3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-%E9%80%9A%E8%BF
 KRB_AS_REP Roasting
 (知道即可) 对于域用户，如果设置了选项 &amp;ldquo;Do not require Kerberos preauthentication&amp;rdquo;，此时向域控制器的88端口发送AS_REQ请求，对收到的AS_REP内容(enc-part底下的ciper，因为这部分是使用用户hash加密session-key，我们通过进行离线爆破就可以获得用户hash)重新组合，能够拼接成”Kerberos 5 AS-REP etype 23”(18200)的格式，接下来可以使用hashcat对其破解，最终获得该用户的明文口令
 使用 impacket 中的 GetNPUsers.py 直接获取即可 ，默认导出 hashcat 的格式，配合 hashcat 爆破即可</description>
-    </item>
-    
-    <item>
-      <title>Math Support</title>
-      <link>/posts/math-support/</link>
-      <pubDate>Fri, 20 Nov 2020 22:52:56 +0800</pubDate>
-      
-      <guid>/posts/math-support/</guid>
-      <description>&lt;p&gt;Eureka supports the rendering of mathematical formulas by using KaTeX.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -77,67 +68,6 @@ KRB_AS_REP Roasting
       
       <guid>/docs/example-doc/nested-chapter/chapter-2/</guid>
       <description>&lt;p&gt;This is chapter 2 of nested chapter.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Featured Image</title>
-      <link>/posts/featured-image/</link>
-      <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/featured-image/</guid>
-      <description>&lt;p&gt;Maecenas maximus, elit in ornare porttitor, nisi eros hendrerit nisl, sed fermentum nulla urna blandit tellus.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Featured Image</title>
-      <link>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</link>
-      <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</guid>
-      <description>根据 &amp;ldquo;kerberos篇&amp;rdquo;的第一步AS_REQ，其发送了用户名，在第二步的校验包AS_REP中由于用户存在、用户不存在与密码错误返回的包不一样，所以可以用来枚举用户名。
- 用户名不存在：error-code: eRR-C-PRINCIPAL-UNKNOWN (6)
-密码错误：error-code: eRR-PREAUTH-REQUIRED (25) KDC_ERR_PREAUTH_FAILED(24) udp/tcp
- 工具：
-https://github.com/3gstudent/pyKerbrute
-https://3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-%E9%80%9A%E8%BF%87Kerberos-pre-auth%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8F%A3%E4%BB%A4%E7%88%86%E7%A0%B4
-1. 用户名枚举： EnumADUser.py &amp;lt;domainControlerAddr&amp;gt; &amp;lt;domainName&amp;gt; &amp;lt;mode&amp;gt; &amp;lt;mode&amp;gt;: tcp or udp Eg. EnumADUser.py 192.168.1.1 test.com user.txt tcp  2. 密码喷洒 由于域内策略，连续密码猜测会导致帐户被锁定，爆破的时候一般采用喷洒式的攻击，即密码一样，跑不同的用户名。 关于口令次数限制，默认为 5 次，具体设置在
-\\&amp;lt;DOMAIN&amp;gt;\SYSVOL\&amp;lt;DOMAIN&amp;gt;\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl.inf中
-（1）DomainPasswordSpray  用 PowerShell 编写的工具，用于对域用户执行密码喷洒攻击。默认情况下，它将利用 LDAP 从域中导出用户列表，然后扣掉被锁定的用户，再用固定密码进行密码喷洒。
-  缺点是不能在域外使用。
- https://github.com/dafthack/DomainPasswordSpray/blob/master/DomainPasswordSpray.ps1
-（2）DomainPasswordSprayOutsideTheDomain https://github.com/3gstudent/Homework-of-Powershell/blob/master/Invoke-DomainPasswordSprayOutsideTheDomain.ps1
-可在域外使用
-3.SPN爆破
-KRB_AS_REP Roasting
-(知道即可) 对于域用户，如果设置了选项 &amp;ldquo;Do not require Kerberos preauthentication&amp;rdquo;，此时向域控制器的88端口发送AS_REQ请求，对收到的AS_REP内容(enc-part底下的ciper，因为这部分是使用用户hash加密session-key，我们通过进行离线爆破就可以获得用户hash)重新组合，能够拼接成”Kerberos 5 AS-REP etype 23”(18200)的格式，接下来可以使用hashcat对其破解，最终获得该用户的明文口令
-使用 impacket 中的 GetNPUsers.py 直接获取即可 ，默认导出 hashcat 的格式，配合 hashcat 爆破即可</description>
-    </item>
-    
-    <item>
-      <title>Markdown Syntax Guide</title>
-      <link>/posts/markdown-syntax/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/markdown-syntax/</guid>
-      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Placeholder Text</title>
-      <link>/posts/placeholder-text/</link>
-      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/placeholder-text/</guid>
-      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Emoji Support</title>
-      <link>/posts/emoji-support/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/emoji-support/</guid>
-      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
     </item>
     
   </channel>

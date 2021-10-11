@@ -14,7 +14,7 @@
   href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
   as="style" onload="this.onload=null;this.rel='stylesheet'">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/stackoverflow-dark.min.css"
    media="print"
   onload="this.media='all';this.onload=null" crossorigin>
 <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
@@ -93,7 +93,7 @@
 
 
 
-<meta property="og:updated_time" content="2021-03-31T13:11:22&#43;08:00" />
+<meta property="og:updated_time" content="2021-10-10T00:00:00&#43;00:00" />
 
 
 
@@ -364,161 +364,18 @@
   
   <div class="w-full ">
     <div class="mb-4">
-  <a href="/posts/diagram-support/" class="font-bold text-xl hover:text-eureka">Diagram Support</a>
+  <a href="/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/" class="font-bold text-xl hover:text-eureka">Kerbrute域内用户枚举与密码喷洒</a>
 </div>
 <div class="content">
   
-    根据 “kerberos篇”的第一步AS_REQ，其发送了用户名，在第二步的校验包AS_REP中由于用户存在、用户不存在与密码错误返回的包不一样，所以可以用来枚举用户名。
- 用户名不存在：error-code: eRR-C-PRINCIPAL-UNKNOWN (6)
-密码错误：error-code: eRR-PREAUTH-REQUIRED (25) KDC_ERR_PREAUTH_FAILED(24) udp/tcp
- 工具：
-https://github.com/3gstudent/pyKerbrute
-https://3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-%E9%80%9A%E8%BF%87Kerberos-pre-auth%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8F%A3%E4%BB%A4%E7%88%86%E7%A0%B4
-1. 用户名枚举： EnumADUser.py &lt;domainControlerAddr&gt; &lt;domainName&gt; &lt;mode&gt; &lt;mode&gt;: tcp or udp Eg. EnumADUser.py 192.168.1.1 test.com user.txt tcp 2. 密码喷洒 由于域内策略，连续密码猜测会导致帐户被锁定，爆破的时候一般采用喷洒式的攻击，即密码一样，跑不同的用户名。 关于口令次数限制，默认为 5 次，具体设置在
-\\&lt;DOMAIN&gt;\SYSVOL\&lt;DOMAIN&gt;\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl.inf中
-（1）DomainPasswordSpray  用 PowerShell 编写的工具，用于对域用户执行密码喷洒攻击。默认情况下，它将利用 LDAP 从域中导出用户列表，然后扣掉被锁定的用户，再用固定密码进行密码喷洒。
-  缺点是不能在域外使用。
- https://github.com/dafthack/DomainPasswordSpray/blob/master/DomainPasswordSpray.ps1
-（2）DomainPasswordSprayOutsideTheDomain https://github.com/3gstudent/Homework-of-Powershell/blob/master/Invoke-DomainPasswordSprayOutsideTheDomain.ps1
-可在域外使用
-3.SPN爆破
-KRB_AS_REP Roasting
-(知道即可) 对于域用户，如果设置了选项 “Do not require Kerberos preauthentication”，此时向域控制器的88端口发送AS_REQ请求，对收到的AS_REP内容(enc-part底下的ciper，因为这部分是使用用户hash加密session-key，我们通过进行离线爆破就可以获得用户hash)重新组合，能够拼接成”Kerberos 5 AS-REP etype 23”(18200)的格式，接下来可以使用hashcat对其破解，最终获得该用户的明文口令
-使用 impacket 中的 GetNPUsers.py 直接获取即可 ，默认导出 hashcat 的格式，配合 hashcat 爆破即可
+    Kerbrute域内用户枚举与密码喷洒
   
 </div>
 
 <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
     <div class="mr-6 my-2">
         <i class="fas fa-calendar mr-1"></i>
-        <span>2021-03-31</span>
-    </div>
-    <div class="mr-6 my-2">
-        <i class="fas fa-clock mr-1"></i>
-        <span>1 min read</span>
-    </div>
-    
-    
-
-    
-</div>
-
-  </div>
-
-  
-</div>
-</div>
-</div>
-
-<div class="mb-6">
-  <div class="bg-secondary-bg rounded border hover:shadow-lg transition ease-in-out duration-200 px-6 pt-6 pb-4">
-  <div class="flex flex-col-reverse lg:flex-row justify-between">
-  
-  <div class="w-full ">
-    <div class="mb-4">
-  <a href="/posts/math-support/" class="font-bold text-xl hover:text-eureka">Math Support</a>
-</div>
-<div class="content">
-  
-    Eureka supports the rendering of mathematical formulas by using KaTeX.
-
-  
-</div>
-
-<div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
-    <div class="mr-6 my-2">
-        <i class="fas fa-calendar mr-1"></i>
-        <span>2020-11-20</span>
-    </div>
-    <div class="mr-6 my-2">
-        <i class="fas fa-clock mr-1"></i>
-        <span>1 min read</span>
-    </div>
-    
-    
-
-    
-</div>
-
-  </div>
-
-  
-</div>
-</div>
-</div>
-
-<div class="mb-6">
-  <div class="bg-secondary-bg rounded border hover:shadow-lg transition ease-in-out duration-200 px-6 pt-6 pb-4">
-  <div class="flex flex-col-reverse lg:flex-row justify-between">
-  
-  <div class="w-full lg:w-2/3">
-    <div class="mb-4">
-  <a href="/posts/featured-image/" class="font-bold text-xl hover:text-eureka">Featured Image</a>
-</div>
-<div class="content">
-  
-    Post with featured image.
-  
-</div>
-
-<div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
-    <div class="mr-6 my-2">
-        <i class="fas fa-calendar mr-1"></i>
-        <span>2020-05-26</span>
-    </div>
-    <div class="mr-6 my-2">
-        <i class="fas fa-clock mr-1"></i>
-        <span>2 min read</span>
-    </div>
-    
-    
-    <div class="mr-6 my-2">
-        <i class="fas fa-folder mr-1"></i>
-        
-        <a href="/categories/themes/" class="hover:text-eureka">themes</a>
-        
-    </div>
-    
-
-    
-    <div class="mr-6 my-2">
-        <i class="fas fa-th-list mr-1"></i>
-        
-        <a href="/series/themes-guide/" class="hover:text-eureka">Themes Guide</a>
-        
-    </div>
-    
-</div>
-
-  </div>
-
-  
-  <div class="w-full lg:w-1/3 mb-4 lg:mb-0 lg:ml-8">
-    <img src="/images/hero-right.jpg" class="w-full" alt="Featured Image">
-  </div>
-  
-</div>
-</div>
-</div>
-
-<div class="mb-6">
-  <div class="bg-secondary-bg rounded border hover:shadow-lg transition ease-in-out duration-200 px-6 pt-6 pb-4">
-  <div class="flex flex-col-reverse lg:flex-row justify-between">
-  
-  <div class="w-full ">
-    <div class="mb-4">
-  <a href="/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/" class="font-bold text-xl hover:text-eureka">Featured Image</a>
-</div>
-<div class="content">
-  
-    Post with featured image.
-  
-</div>
-
-<div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
-    <div class="mr-6 my-2">
-        <i class="fas fa-calendar mr-1"></i>
-        <span>2020-05-26</span>
+        <span>2021-10-10</span>
     </div>
     <div class="mr-6 my-2">
         <i class="fas fa-clock mr-1"></i>
@@ -534,60 +391,6 @@ KRB_AS_REP Roasting
     </div>
     
 
-    
-</div>
-
-  </div>
-
-  
-</div>
-</div>
-</div>
-
-<div class="mb-6">
-  <div class="bg-secondary-bg rounded border hover:shadow-lg transition ease-in-out duration-200 px-6 pt-6 pb-4">
-  <div class="flex flex-col-reverse lg:flex-row justify-between">
-  
-  <div class="w-full ">
-    <div class="mb-4">
-  <a href="/posts/markdown-syntax/" class="font-bold text-xl hover:text-eureka">Markdown Syntax Guide</a>
-</div>
-<div class="content">
-  
-    Sample article showcasing basic Markdown syntax and formatting for HTML elements.
-  
-</div>
-
-<div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
-    <div class="mr-6 my-2">
-        <i class="fas fa-calendar mr-1"></i>
-        <span>2019-03-11</span>
-    </div>
-    <div class="mr-6 my-2">
-        <i class="fas fa-clock mr-1"></i>
-        <span>3 min read</span>
-    </div>
-    
-    
-    <div class="mr-6 my-2">
-        <i class="fas fa-folder mr-1"></i>
-        
-        <a href="/categories/themes/" class="hover:text-eureka">themes</a>
-        
-        
-        <span>, </span>
-        <a href="/categories/syntax/" class="hover:text-eureka">syntax</a>
-        
-    </div>
-    
-
-    
-    <div class="mr-6 my-2">
-        <i class="fas fa-th-list mr-1"></i>
-        
-        <a href="/series/themes-guide/" class="hover:text-eureka">Themes Guide</a>
-        
-    </div>
     
 </div>
 
