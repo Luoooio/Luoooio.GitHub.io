@@ -10,6 +10,33 @@
 </copyright>
     <lastBuildDate>Mon, 11 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Pocsuite3 POC/EXP编写</title>
+      <link>/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/</link>
+      <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/</guid>
+      <description>Pocsuite3 是一个POC框架，用于漏洞的验证、攻击等等
+使用 https://github.com/knownsec/pocsuite3/blob/master/docs/USAGE.md
+Pocsuite3可以进行批量验证、攻击，它有三种模式verify（验证）、attack（攻击）、shell（获得shell），并且可以设置多种参数。
+编写POC 这里以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP：
+思路：
+分为linux与windows：
+ linux  发送post包检测是否可以RCE
+如果不可以的话发送get包检测是否可以目录穿越
+读取对象:/etc/passwd
+关键字：root
+ windows  由于windows的apache无法直接调用cmd执行命令，只能通过php.exe之类的来解析，所以不考虑RCE，只判断是否可以目录穿越读取文件。
+读取对象：c:/Windows/win.ini
+关键字：extensions
+由于两个RCE仅仅是URL编码的不同，所以这里直接使用二次URL编码来兼容两个RCE。
+ 注意：python的request请求包会自动进行一次编码，所以编写poc的时候不需要二次编码
+使用%2e即可
+实验发现不行，它会在编码之前先解码一次，解码之后会将..删除，所以换了urllib库。
+ 1.导入包 编写 PoC 实现类 DemoPOC，继承自 PoCBase 类
+from pocsuite3.api import Output, POCBase, register_poc, requests, logger from pocsuite3.api import get_listener_ip, get_listener_port from pocsuite3.api import REVERSE_PAYLOAD from pocsuite3.lib.utils import random_str class DemoPOC(POCBase): ...  PoC信息字段填写 vulID = &#39;0&#39; # ssvid ID 如果是提交漏洞的同时提交 PoC，则写成 0 version = &#39;1.0&#39; # 默认为1 author = &#39;Oulaa&#39; # PoC 作者的大名 vulDate = &#39;2021-10-5&#39; # 漏洞公开的时间，不知道就写今天 createDate = &#39;2021-10-5&#39; # 编写 PoC 的日期 updateDate = &#39;2021-10-5&#39; # PoC 更新的时间，默认和编写时间一样 references = [] # 漏洞地址来源，0day 不用写 name = &#39;CVE-2021-41773/CVE-2021-42013 Apache HTTPd (2.</description>
+    </item>
+    
+    <item>
       <title>域中票据的制作</title>
       <link>/posts/%E5%9F%9F%E4%B8%AD%E7%A5%A8%E6%8D%AE%E7%9A%84%E5%88%B6%E4%BD%9C/</link>
       <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>

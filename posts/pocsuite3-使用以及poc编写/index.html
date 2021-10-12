@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang='en' ><meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+<title>Pocsuite3 POC/EXP编写 | Oulaa</title>
+
+<meta name="generator" content="Hugo Eureka 0.8.3" />
+<link rel="stylesheet" href="/css/eureka.min.css">
+<script defer src="/js/eureka.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/stackoverflow-dark.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
+   crossorigin></script>
+
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
+   integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+   integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3&#43;Aro6EYUG4&#43;cU&#43;KJWu/X"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" 
+  integrity="sha384-g7c&#43;Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI&#43;sEnkvrMWph2EDg4"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+   integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC&#43;Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.9.2/dist/mermaid.min.js" 
+  integrity="sha256-Zmpaaj&#43;GXFsPF5WdPArSrnW3b30dovldeKsW00xBVwE="  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"Posts",
+      "item":"/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"Pocsuite3 POC/EXP编写",
+      "item":"/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/"
+    },
+    "headline": "Pocsuite3 POC\/EXP编写 | Oulaa","datePublished": "2021-10-11T00:00:00+00:00",
+    "dateModified": "2021-10-11T00:00:00+00:00",
+    "wordCount":  427 ,
+    "author": {
+        "@type": "Person",
+        "name": ["Oulaa"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "C. Wang",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "/images/icon.png"
+        }
+        },
+    "description": "以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP"
+}
+</script><meta property="og:title" content="Pocsuite3 POC/EXP编写 | Oulaa" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="/images/icon.png">
+
+
+<meta property="og:url" content="/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/" />
+
+
+
+<meta property="og:description" content="以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP" />
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="Oulaa" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2021-10-11T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2021-10-11T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="CVE" />
+
+<meta property="article:tag" content="中间件" />
+
+
+
+
+
+<meta property="og:see_also" content="/posts/41773/" />
+
+
+
+<body class="flex flex-col min-h-screen">
+  <header class="fixed flex items-center w-full min-h-16 pl-scrollbar z-50 bg-secondary-bg shadow-sm">
+    <div class="w-full max-w-screen-xl mx-auto"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="mr-6 text-primary-text text-xl font-bold">Oulaa</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:flex-grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:flex-grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">关于我</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  mr-4">文章</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">文档</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col left-0 md:left-auto right-auto md:right-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+  </header>
+  <main class="flex-grow pt-16">
+    <div class="pl-scrollbar">
+      <div class="w-full max-w-screen-xl lg:px-4 xl:px-8 mx-auto">
+
+
+<div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
+        <h1 class="font-bold text-3xl text-primary-text">Pocsuite3 POC/EXP编写</h1>
+        <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
+    <div class="mr-6 my-2">
+        <i class="fas fa-calendar mr-1"></i>
+        <span>2021-10-11</span>
+    </div>
+    <div class="mr-6 my-2">
+        <i class="fas fa-clock mr-1"></i>
+        <span>3 min read</span>
+    </div>
+    
+    
+    <div class="mr-6 my-2">
+        <i class="fas fa-folder mr-1"></i>
+        
+        <a href="/categories/web%E5%AE%89%E5%85%A8/" class="hover:text-eureka">web安全</a>
+        
+    </div>
+    
+
+    
+</div>
+        
+        
+        
+
+        <div class="content">
+            <p>Pocsuite3 是一个POC框架，用于漏洞的验证、攻击等等</p>
+<h2 id="使用">使用</h2>
+<p><a href="https://github.com/knownsec/pocsuite3/blob/master/docs/USAGE.md">https://github.com/knownsec/pocsuite3/blob/master/docs/USAGE.md</a></p>
+<p>Pocsuite3可以进行批量验证、攻击，它有三种模式verify（验证）、attack（攻击）、shell（获得shell），并且可以设置多种参数。</p>
+<h2 id="编写poc">编写POC</h2>
+<p>这里以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP：</p>
+<p>思路：</p>
+<p>分为linux与windows：</p>
+<ul>
+<li>linux</li>
+</ul>
+<p>发送post包检测是否可以RCE</p>
+<p>如果不可以的话发送get包检测是否可以目录穿越</p>
+<p>读取对象:<code>/etc/passwd</code></p>
+<p>关键字：<code>root</code></p>
+<ul>
+<li>windows</li>
+</ul>
+<p>由于windows的apache无法直接调用cmd执行命令，只能通过php.exe之类的来解析，所以不考虑RCE，只判断是否可以目录穿越读取文件。</p>
+<p>读取对象：<code>c:/Windows/win.ini</code></p>
+<p>关键字：<code>extensions</code></p>
+<p>由于两个RCE仅仅是URL编码的不同，所以这里直接使用二次URL编码来兼容两个RCE。</p>
+<blockquote>
+<p>注意：python的request请求包会自动进行一次编码，所以编写poc的时候不需要二次编码</p>
+<p>使用%2e即可</p>
+<p>实验发现不行，它会在编码之前先解码一次，解码之后会将..删除，所以换了urllib库。</p>
+</blockquote>
+<h3 id="1导入包">1.导入包</h3>
+<p>编写 PoC 实现类 <code>DemoPOC</code>，继承自 <code>PoCBase</code> 类</p>
+<pre><code class="language-java">from pocsuite3.api import Output, POCBase, register_poc, requests, logger
+from pocsuite3.api import get_listener_ip, get_listener_port
+from pocsuite3.api import REVERSE_PAYLOAD
+from pocsuite3.lib.utils import random_str
+
+  class DemoPOC(POCBase):
+    ...
+
+</code></pre>
+<h3 id="poc信息字段填写">PoC信息字段填写</h3>
+<pre><code class="language-java">    vulID = '0'  # ssvid ID 如果是提交漏洞的同时提交 PoC，则写成 0
+    version = '1.0'  # 默认为1
+    author = 'Oulaa'  # PoC 作者的大名
+    vulDate = '2021-10-5'  # 漏洞公开的时间，不知道就写今天
+    createDate = '2021-10-5'  # 编写 PoC 的日期
+    updateDate = '2021-10-5'  # PoC 更新的时间，默认和编写时间一样
+    references = []  # 漏洞地址来源，0day 不用写
+    name = 'CVE-2021-41773/CVE-2021-42013 Apache HTTPd (2.4.49/2.4.50)'  # PoC 名称
+    appPowerLink = 'Apache HTTPd'  # 漏洞厂商主页地址
+    appName = 'Apache HTTPd'  # 漏洞应用名称
+    appVersion = '2.4.49/2.4.50'  # 漏洞影响版本
+    vulType = 'Path Traversal'  # 漏洞类型，类型参考见漏洞类型规范表
+    desc = '''
+            Apache HTTPd 中间件2.4.49/2.4.50版本的目录穿越漏洞，在开启了CGI的情况下可以做到RCE。
+        '''  # 漏洞简要描述
+    samples = []  # 测试样列，就是用 PoC 测试成功的网站
+    install_requires = []  # PoC 第三方模块依赖，请尽量不要使用第三方模块，必要时请参考《PoC第三方模块依赖说明》填写
+    pocDesc = ''' Apache HTTPd 2.4.49/2.4.50 验证是否存在目录穿越/RCE
+    '''
+</code></pre>
+<h3 id="验证模式编写">验证模式编写</h3>
+<p>调用验证模式会进入_verify ，使用self.url 获得需要验证的url ，使用output.success(result)输出成功信息，使用output.fail 输出失败信息。</p>
+<p>demo：</p>
+<pre><code class="language-java">  def _verify(self):
+        output = Output(self)
+        # 验证代码
+        if result:  # result是返回结果
+            output.success(result)
+        else:
+            output.fail('target is not vulnerable')
+        return output
+</code></pre>
+<p>注意：在_verify中我们常用新的函数 _check 来处理具体的验证逻辑，然后 使用_parse_output函数完成输出处理。例如在我们的poc中：</p>
+<pre><code class="language-java">    def _verify(self):
+        result ={}
+        apache = self._check(self.url)
+        if apache:
+            result['VerifyInfo'] = {}
+            result['VerifyInfo']['URL'] = self.url
+            result['VerifyInfo']['SYSTEM'] = apache[0]
+            result['VerifyInfo']['TYPE'] = apache[1]
+        return self.parse_output(result)
+    def parse_output(self, result):
+        output = Output(self)
+        if result:
+            output.success(result)
+        else:
+            output.fail('[-]target is not vulnerable')
+        return output
+    def _check(self, url):
+	# return False
+	return result
+
+
+</code></pre>
+<p>记录一下在编写CVE-2021-41773、CVE-2021-42013的_check 遇到的问题</p>
+<ul>
+<li>1.request 无法编码的问题：
+使用urllib 库</li>
+<li>2.urllib库无法使用pocsuite3的proxy参数来代理：
+使用它自己的proxy代理方式</li>
+<li>3.相关的python代码<a href="siyuan://blocks/20211012171227-cud7z93">&ldquo;urllib 库的使用&rdquo;</a></li>
+</ul>
+<h3 id="编写攻击模式">编写攻击模式</h3>
+<p>_attack 模式与验证模式的编写方式差不多，但功能上更倾向于对目标进行 getshell，查询管理员帐号密码等操作。</p>
+<pre><code class="language-java">def _attack(self):
+    output = Output(self)
+    result = {}
+    # 攻击代码
+</code></pre>
+<p>如果不想定义该内容，<code>return self._verify()</code> 即可。</p>
+<h3 id="编写shell模式">编写shell模式</h3>
+<p>pocsuite3 在 shell 模式会默认监听 <code>6666</code> 端口，编写对应的攻击代码，让目标执行反向连接运行 pocsuite3 系统 IP 的 <code>6666</code> 端口即可得到一个 shell</p>
+<pre><code class="language-python">def _shell(self):
+    cmd = REVERSE_PAYLOAD.BASH.format(get_listener_ip(), get_listener_port())
+    # 攻击代码 execute cmd
+</code></pre>
+<p>shell 模式下，只能运行单个 PoC 脚本，控制台会进入 shell 交互模式执行命令及输出</p>
+<h3 id="返回内容">返回内容</h3>
+<p>不管是验证模式或者攻击模式，返回结果 result 中的 key 值必须按照下面的规范来写</p>
+<pre><code class="language-java">'Result':{
+   'DBInfo' :   {'Username': 'xxx', 'Password': 'xxx', 'Salt': 'xxx' , 'Uid':'xxx' , 'Groupid':'xxx'},
+   'ShellInfo': {'URL': 'xxx', 'Content': 'xxx' },
+   'FileInfo':  {'Filename':'xxx','Content':'xxx'},
+   'XSSInfo':   {'URL':'xxx','Payload':'xxx'},
+   'AdminInfo': {'Uid':'xxx' , 'Username':'xxx' , 'Password':'xxx' }
+   'Database':  {'Hostname':'xxx', 'Username':'xxx',  'Password':'xxx', 'DBname':'xxx'},
+   'VerifyInfo':{'URL': 'xxx' , 'Postdata':'xxx' , 'Path':'xxx'}
+   'SiteAttr':  {'Process':'xxx'}
+   'Stdout': 'result output string'
+}
+
+</code></pre>
+<p>POC中：</p>
+<pre><code class="language-python">            result['VerifyInfo'] = {}
+            result['VerifyInfo']['URL'] = self.url
+            result['VerifyInfo']['SYSTEM'] = apache[0]
+            result['VerifyInfo']['TYPE'] = apache[1]
+</code></pre>
+<h3 id="自定义参数">自定义参数</h3>
+<p>如果你需要编写一个可以交互参数的 PoC 文件(例如有的 PoC 脚本需要填写登录信息，或者任意命令执行时执行任意命令)，那么可以在 PoC 文件中声明一个 <code>_options</code> 方法。一个简单的例子如下</p>
+<pre><code class="language-java">from collections import OrderedDict
+from pocsuite3.api import Output, POCBase, POC_CATEGORY, register_poc, requests, VUL_TYPE
+from pocsuite3.api import OptString
+......
+
+ def _options(self):
+        o = OrderedDict()
+        o[&quot;username&quot;] = OptString('', description='这个poc需要用户登录，请输入登录账号', require=True)
+        o[&quot;password&quot;] = OptString('', description='这个poc需要用户密码，请输出用户密码', require=False)
+        return o
+</code></pre>
+<p>PoC：</p>
+<pre><code class="language-java">def _options(self):
+        o = OrderedDict()
+        o[&quot;cmd&quot;] = OptString('', description='[+]请输入你想执行的命令', require=True)
+        return o
+</code></pre>
+<p>总结：</p>
+<p>简单使用了一下，感觉Pocsuite3来编写漏洞POC或者EXP还是比较方便的，还可以方便自定义插件，但是在使用了自定义参数后必须要使用这点比较不方便，没有找到解决方法可以让仅仅在某个模式才需要键入参数的方法。</p>
+<p>代码地址：</p>
+<p><a href="https://github.com/Luoooio/allCode/blob/main/pocsuite3_pocs/CVE-2021-41773.py">https://github.com/Luoooio/allCode/blob/main/pocsuite3_pocs/CVE-2021-41773.py</a></p>
+<h2 id="参考文章">参考文章</h2>
+<p><a href="https://paper.seebug.org/904/">https://paper.seebug.org/904/</a></p>
+<p><a href="https://github.com/knownsec/pocsuite3/blob/master/docs/CODING.md#namedstandard">https://github.com/knownsec/pocsuite3/blob/master/docs/CODING.md#namedstandard</a></p>
+<p><a href="https://github.com/knownsec/pocsuite3/blob/master/docs/CODING.md#write_poc">https://github.com/knownsec/pocsuite3/blob/master/docs/CODING.md#write_poc</a></p>
+
+        </div>
+        
+        <div class="my-4">
+    
+    <a href="/tags/cve/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#CVE</a>
+    
+    <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#中间件</a>
+    
+</div>
+        
+        
+        
+
+
+        
+        
+        <div class="py-2">
+    
+    <div class="flex flex-col md:flex-row items-center my-8">
+        <a href="/authors/oulaa/" class="w-24 h-24 md:mr-4">
+            
+            
+            <img src="/images/taichi.png" class="w-full bg-primary-bg rounded-full" alt="Avatar">
+            
+        </a>
+        <div class="w-full md:w-auto mt-4 md:mt-0">
+            <a href="/authors/oulaa/" class="block font-bold text-lg pb-1 mb-2 border-b">Oulaa</a>
+            <span class="block pb-2">黑白之色，无间之守</span>
+            
+            
+            
+            
+            
+            <a href="mailto:example@example.com" class="mr-1">
+                <i class="fas fa-envelope"></i>
+            </a>
+            
+            
+            
+            
+            
+            <a href="https://example.com/" class="mr-1">
+                <i class="fab fa-twitter"></i>
+            </a>
+            
+            
+            
+            
+            
+            <a href="https://example.com/" class="mr-1">
+                <i class="fab fa-github"></i>
+            </a>
+            
+        </div>
+    </div>
+    
+</div>
+        
+        
+        
+<div class="flex flex-col md:flex-row md:justify-between -mx-2 mt-4 px-2 pt-4 border-t">
+    <div>
+        
+    </div>
+    <div class="md:text-right mt-4 md:mt-0">
+        
+        <span class="block font-bold">Next</span>
+        <a href="/posts/%E5%9F%9F%E4%B8%AD%E7%A5%A8%E6%8D%AE%E7%9A%84%E5%88%B6%E4%BD%9C/" class="block">域中票据的制作</a>
+        
+    </div>
+</div>
+
+        
+
+
+
+    </div>
+    
+    <div class="col-span-2">
+        
+        
+        <div class="sticky top-16 z-10 hidden lg:block px-6 py-4  bg-primary-bg ">
+    <span class="text-lg font-semibold">On This Page</span>
+</div>
+<div class="sticky-toc hidden lg:block px-6 pb-6 ">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#使用">使用</a></li>
+    <li><a href="#编写poc">编写POC</a>
+      <ul>
+        <li><a href="#1导入包">1.导入包</a></li>
+        <li><a href="#poc信息字段填写">PoC信息字段填写</a></li>
+        <li><a href="#验证模式编写">验证模式编写</a></li>
+        <li><a href="#编写攻击模式">编写攻击模式</a></li>
+        <li><a href="#编写shell模式">编写shell模式</a></li>
+        <li><a href="#返回内容">返回内容</a></li>
+        <li><a href="#自定义参数">自定义参数</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考文章">参考文章</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        enableStickyToc();
+    });
+</script>
+        
+    </div>
+    
+
+    
+    
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded p-6">
+        <h2 class="text-lg font-semibold mb-4">See Also</h2>
+        <div class="content">
+            
+            <a href="/posts/41773/">CVE-2021-41773 Apache HTTPd (2.4.49)</a>
+            <br />
+            
+        </div>
+    </div>
+    
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        hljs.initHighlightingOnLoad();
+    })
+</script>
+
+      </div>
+    </div>
+    
+  </main>
+  <footer class="pl-scrollbar">
+    <div class="w-full max-w-screen-xl mx-auto"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">C. Wang</a> and <a href="https://www.ruiqima.com/">R. Ma</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+  </footer>
+</body>
+
+</html>
