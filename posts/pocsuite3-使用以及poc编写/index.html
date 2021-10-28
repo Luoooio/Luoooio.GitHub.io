@@ -14,14 +14,11 @@
   href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
   as="style" onload="this.onload=null;this.rel='stylesheet'">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/stackoverflow-dark.min.css"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
    media="print"
   onload="this.media='all';this.onload=null" crossorigin>
 <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
    crossorigin></script>
-
-  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
-     crossorigin></script>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
    integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
@@ -87,7 +84,7 @@
     },
     "headline": "Pocsuite3 POC\/EXP编写 | Oulaa","datePublished": "2021-10-11T00:00:00+00:00",
     "dateModified": "2021-10-11T00:00:00+00:00",
-    "wordCount":  427 ,
+    "wordCount":  520 ,
     "author": {
         "@type": "Person",
         "name": ["Oulaa"]
@@ -282,72 +279,148 @@
 </blockquote>
 <h3 id="导入包">导入包</h3>
 <p>编写 PoC 实现类 <code>DemoPOC</code>，继承自 <code>PoCBase</code> 类</p>
-<pre><code class="language-java">from pocsuite3.api import Output, POCBase, register_poc, requests, logger
-from pocsuite3.api import get_listener_ip, get_listener_port
-from pocsuite3.api import REVERSE_PAYLOAD
-from pocsuite3.lib.utils import random_str
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">from pocsuite3<span style="color:#666">.</span><span style="color:#7d9029">api</span> <span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">Output</span><span style="color:#666">,</span> POCBase<span style="color:#666">,</span> register_poc<span style="color:#666">,</span> requests<span style="color:#666">,</span> logger
+from pocsuite3<span style="color:#666">.</span><span style="color:#7d9029">api</span> <span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">get_listener_ip</span><span style="color:#666">,</span> get_listener_port
+from pocsuite3<span style="color:#666">.</span><span style="color:#7d9029">api</span> <span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">REVERSE_PAYLOAD</span>
+from pocsuite3<span style="color:#666">.</span><span style="color:#7d9029">lib</span><span style="color:#666">.</span><span style="color:#7d9029">utils</span> <span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">random_str</span>
 
-  class DemoPOC(POCBase):
-    ...
+  <span style="color:#008000;font-weight:bold">class</span> <span style="color:#00f">DemoPOC</span><span style="color:#666">(</span>POCBase<span style="color:#666">):</span>
+    <span style="color:#666">...</span>
 
-</code></pre>
-<h3 id="poc信息字段填写">PoC信息字段填写</h3>
-<pre><code class="language-java">    vulID = '0'  # ssvid ID 如果是提交漏洞的同时提交 PoC，则写成 0
-    version = '1.0'  # 默认为1
-    author = 'Oulaa'  # PoC 作者的大名
-    vulDate = '2021-10-5'  # 漏洞公开的时间，不知道就写今天
-    createDate = '2021-10-5'  # 编写 PoC 的日期
-    updateDate = '2021-10-5'  # PoC 更新的时间，默认和编写时间一样
-    references = []  # 漏洞地址来源，0day 不用写
-    name = 'CVE-2021-41773/CVE-2021-42013 Apache HTTPd (2.4.49/2.4.50)'  # PoC 名称
-    appPowerLink = 'Apache HTTPd'  # 漏洞厂商主页地址
-    appName = 'Apache HTTPd'  # 漏洞应用名称
-    appVersion = '2.4.49/2.4.50'  # 漏洞影响版本
-    vulType = 'Path Traversal'  # 漏洞类型，类型参考见漏洞类型规范表
-    desc = '''
-            Apache HTTPd 中间件2.4.49/2.4.50版本的目录穿越漏洞，在开启了CGI的情况下可以做到RCE。
-        '''  # 漏洞简要描述
-    samples = []  # 测试样列，就是用 PoC 测试成功的网站
-    install_requires = []  # PoC 第三方模块依赖，请尽量不要使用第三方模块，必要时请参考《PoC第三方模块依赖说明》填写
-    pocDesc = ''' Apache HTTPd 2.4.49/2.4.50 验证是否存在目录穿越/RCE
-    '''
-</code></pre>
-<h3 id="验证模式编写">验证模式编写</h3>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="poc信息字段填写">PoC信息字段填写</h3>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    vulID <span style="color:#666">=</span> <span style="color:#ba2121">&#39;0&#39;</span>  <span style="">#</span> ssvid ID 如果是提交漏洞的同时提交 PoC<span style="">，</span>则写成 0
+    version <span style="color:#666">=</span> <span style="">&#39;</span>1<span style="color:#666">.</span><span style="color:#7d9029">0</span><span style="">&#39;</span>  <span style="">#</span> 默认为1
+    author <span style="color:#666">=</span> <span style="">&#39;</span>Oulaa<span style="">&#39;</span>  <span style="">#</span> PoC 作者的大名
+    vulDate <span style="color:#666">=</span> <span style="">&#39;</span>2021<span style="color:#666">-</span>10<span style="color:#666">-</span>5<span style="">&#39;</span>  <span style="">#</span> 漏洞公开的时间<span style="">，</span>不知道就写今天
+    createDate <span style="color:#666">=</span> <span style="">&#39;</span>2021<span style="color:#666">-</span>10<span style="color:#666">-</span>5<span style="">&#39;</span>  <span style="">#</span> 编写 PoC 的日期
+    updateDate <span style="color:#666">=</span> <span style="">&#39;</span>2021<span style="color:#666">-</span>10<span style="color:#666">-</span>5<span style="">&#39;</span>  <span style="">#</span> PoC 更新的时间<span style="">，</span>默认和编写时间一样
+    references <span style="color:#666">=</span> <span style="color:#666">[]</span>  <span style="">#</span> 漏洞地址来源<span style="">，</span>0day 不用写
+    name <span style="color:#666">=</span> <span style="">&#39;</span>CVE<span style="color:#666">-</span>2021<span style="color:#666">-</span>41773<span style="color:#666">/</span>CVE<span style="color:#666">-</span>2021<span style="color:#666">-</span>42013 Apache <span style="color:#00f">HTTPd</span> <span style="color:#666">(</span>2<span style="color:#666">.</span><span style="color:#7d9029">4</span><span style="color:#666">.</span><span style="color:#7d9029">49</span><span style="color:#666">/</span>2<span style="color:#666">.</span><span style="color:#7d9029">4</span><span style="color:#666">.</span><span style="color:#7d9029">50</span><span style="color:#666">)</span><span style="">&#39;</span>  <span style="">#</span> PoC 名称
+    appPowerLink <span style="color:#666">=</span> <span style="">&#39;</span>Apache HTTPd<span style="">&#39;</span>  <span style="">#</span> 漏洞厂商主页地址
+    appName <span style="color:#666">=</span> <span style="">&#39;</span>Apache HTTPd<span style="">&#39;</span>  <span style="">#</span> 漏洞应用名称
+    appVersion <span style="color:#666">=</span> <span style="">&#39;</span>2<span style="color:#666">.</span><span style="color:#7d9029">4</span><span style="color:#666">.</span><span style="color:#7d9029">49</span><span style="color:#666">/</span>2<span style="color:#666">.</span><span style="color:#7d9029">4</span><span style="color:#666">.</span><span style="color:#7d9029">50</span><span style="">&#39;</span>  <span style="">#</span> 漏洞影响版本
+    vulType <span style="color:#666">=</span> <span style="">&#39;</span>Path Traversal<span style="">&#39;</span>  <span style="">#</span> 漏洞类型<span style="">，</span>类型参考见漏洞类型规范表
+    desc <span style="color:#666">=</span> <span style="color:#ba2121">&#39;&#39;&#39;</span>
+            Apache HTTPd 中间件2<span style="color:#666">.</span><span style="color:#7d9029">4</span><span style="color:#666">.</span><span style="color:#7d9029">49</span><span style="color:#666">/</span>2<span style="color:#666">.</span><span style="color:#7d9029">4</span><span style="color:#666">.</span><span style="color:#7d9029">50版本的目录穿越漏洞</span><span style="">，</span>在开启了CGI的情况下可以做到RCE<span style="">。</span>
+        <span style="color:#ba2121">&#39;&#39;&#39;</span>  <span style="">#</span> 漏洞简要描述
+    samples <span style="color:#666">=</span> <span style="color:#666">[]</span>  <span style="">#</span> 测试样列<span style="">，</span>就是用 PoC 测试成功的网站
+    install_requires <span style="color:#666">=</span> <span style="color:#666">[]</span>  <span style="">#</span> PoC 第三方模块依赖<span style="">，</span>请尽量不要使用第三方模块<span style="">，</span>必要时请参考<span style="">《</span>PoC第三方模块依赖说明<span style="">》</span>填写
+    pocDesc <span style="color:#666">=</span> <span style="color:#ba2121">&#39;&#39;&#39;</span> Apache HTTPd 2<span style="color:#666">.</span><span style="color:#7d9029">4</span><span style="color:#666">.</span><span style="color:#7d9029">49</span><span style="color:#666">/</span>2<span style="color:#666">.</span><span style="color:#7d9029">4</span><span style="color:#666">.</span><span style="color:#7d9029">50</span> 验证是否存在目录穿越<span style="color:#666">/</span>RCE
+    <span style="color:#ba2121">&#39;&#39;&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="验证模式编写">验证模式编写</h3>
 <p>调用验证模式会进入_verify ，使用self.url 获得需要验证的url ，使用output.success(result)输出成功信息，使用output.fail 输出失败信息。</p>
 <p>demo：</p>
-<pre><code class="language-java">  def _verify(self):
-        output = Output(self)
-        # 验证代码
-        if result:  # result是返回结果
-            output.success(result)
-        else:
-            output.fail('target is not vulnerable')
-        return output
-</code></pre>
-<p>注意：在_verify中我们常用新的函数 _check 来处理具体的验证逻辑，然后 使用_parse_output函数完成输出处理。例如在我们的poc中：</p>
-<pre><code class="language-java">    def _verify(self):
-        result ={}
-        apache = self._check(self.url)
-        if apache:
-            result['VerifyInfo'] = {}
-            result['VerifyInfo']['URL'] = self.url
-            result['VerifyInfo']['SYSTEM'] = apache[0]
-            result['VerifyInfo']['TYPE'] = apache[1]
-        return self.parse_output(result)
-    def parse_output(self, result):
-        output = Output(self)
-        if result:
-            output.success(result)
-        else:
-            output.fail('[-]target is not vulnerable')
-        return output
-    def _check(self, url):
-	# return False
-	return result
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  def <span style="color:#00f">_verify</span><span style="color:#666">(</span>self<span style="color:#666">):</span>
+        output <span style="color:#666">=</span> Output<span style="color:#666">(</span>self<span style="color:#666">)</span>
+        <span style="">#</span> 验证代码
+        <span style="color:#008000;font-weight:bold">if</span> result<span style="color:#666">:</span>  <span style="">#</span> result是返回结果
+            output<span style="color:#666">.</span><span style="color:#7d9029">success</span><span style="color:#666">(</span>result<span style="color:#666">)</span>
+        <span style="color:#008000;font-weight:bold">else</span><span style="color:#666">:</span>
+            output<span style="color:#666">.</span><span style="color:#7d9029">fail</span><span style="color:#666">(</span><span style="">&#39;</span>target is not vulnerable<span style="">&#39;</span><span style="color:#666">)</span>
+        <span style="color:#008000;font-weight:bold">return</span> output
+</code></pre></td></tr></table>
+</div>
+</div><p>注意：在_verify中我们常用新的函数 _check 来处理具体的验证逻辑，然后 使用_parse_output函数完成输出处理。例如在我们的poc中：</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    def <span style="color:#00f">_verify</span><span style="color:#666">(</span>self<span style="color:#666">):</span>
+        result <span style="color:#666">={}</span>
+        apache <span style="color:#666">=</span> self<span style="color:#666">.</span><span style="color:#7d9029">_check</span><span style="color:#666">(</span>self<span style="color:#666">.</span><span style="color:#7d9029">url</span><span style="color:#666">)</span>
+        <span style="color:#008000;font-weight:bold">if</span> apache<span style="color:#666">:</span>
+            result<span style="color:#666">[</span><span style="">&#39;</span>VerifyInfo<span style="">&#39;</span><span style="color:#666">]</span> <span style="color:#666">=</span> <span style="color:#666">{}</span>
+            result<span style="color:#666">[</span><span style="">&#39;</span>VerifyInfo<span style="">&#39;</span><span style="color:#666">][</span><span style="">&#39;</span>URL<span style="">&#39;</span><span style="color:#666">]</span> <span style="color:#666">=</span> self<span style="color:#666">.</span><span style="color:#7d9029">url</span>
+            result<span style="color:#666">[</span><span style="">&#39;</span>VerifyInfo<span style="">&#39;</span><span style="color:#666">][</span><span style="">&#39;</span>SYSTEM<span style="">&#39;</span><span style="color:#666">]</span> <span style="color:#666">=</span> apache<span style="color:#666">[</span>0<span style="color:#666">]</span>
+            result<span style="color:#666">[</span><span style="">&#39;</span>VerifyInfo<span style="">&#39;</span><span style="color:#666">][</span><span style="">&#39;</span>TYPE<span style="">&#39;</span><span style="color:#666">]</span> <span style="color:#666">=</span> apache<span style="color:#666">[</span>1<span style="color:#666">]</span>
+        <span style="color:#008000;font-weight:bold">return</span> self<span style="color:#666">.</span><span style="color:#7d9029">parse_output</span><span style="color:#666">(</span>result<span style="color:#666">)</span>
+    def <span style="color:#00f">parse_output</span><span style="color:#666">(</span>self<span style="color:#666">,</span> result<span style="color:#666">):</span>
+        output <span style="color:#666">=</span> Output<span style="color:#666">(</span>self<span style="color:#666">)</span>
+        <span style="color:#008000;font-weight:bold">if</span> result<span style="color:#666">:</span>
+            output<span style="color:#666">.</span><span style="color:#7d9029">success</span><span style="color:#666">(</span>result<span style="color:#666">)</span>
+        <span style="color:#008000;font-weight:bold">else</span><span style="color:#666">:</span>
+            output<span style="color:#666">.</span><span style="color:#7d9029">fail</span><span style="color:#666">(</span><span style="">&#39;</span><span style="color:#666">[-]</span>target is not vulnerable<span style="">&#39;</span><span style="color:#666">)</span>
+        <span style="color:#008000;font-weight:bold">return</span> output
+    def <span style="color:#00f">_check</span><span style="color:#666">(</span>self<span style="color:#666">,</span> url<span style="color:#666">):</span>
+	<span style="">#</span> <span style="color:#008000;font-weight:bold">return</span> False
+	<span style="color:#008000;font-weight:bold">return</span> result
 
 
-</code></pre>
-<p>记录一下在编写CVE-2021-41773、CVE-2021-42013的_check 遇到的问题</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>记录一下在编写CVE-2021-41773、CVE-2021-42013的_check 遇到的问题</p>
 <ul>
 <li>1.request 无法编码的问题：
 使用urllib 库</li>
@@ -357,60 +430,127 @@ from pocsuite3.lib.utils import random_str
 </ul>
 <h3 id="编写攻击模式">编写攻击模式</h3>
 <p>_attack 模式与验证模式的编写方式差不多，但功能上更倾向于对目标进行 getshell，查询管理员帐号密码等操作。</p>
-<pre><code class="language-java">def _attack(self):
-    output = Output(self)
-    result = {}
-    # 攻击代码
-</code></pre>
-<p>如果不想定义该内容，<code>return self._verify()</code> 即可。</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">def <span style="color:#00f">_attack</span><span style="color:#666">(</span>self<span style="color:#666">):</span>
+    output <span style="color:#666">=</span> Output<span style="color:#666">(</span>self<span style="color:#666">)</span>
+    result <span style="color:#666">=</span> <span style="color:#666">{}</span>
+    <span style="">#</span> 攻击代码
+</code></pre></td></tr></table>
+</div>
+</div><p>如果不想定义该内容，<code>return self._verify()</code> 即可。</p>
 <h3 id="编写shell模式">编写shell模式</h3>
 <p>pocsuite3 在 shell 模式会默认监听 <code>6666</code> 端口，编写对应的攻击代码，让目标执行反向连接运行 pocsuite3 系统 IP 的 <code>6666</code> 端口即可得到一个 shell</p>
-<pre><code class="language-python">def _shell(self):
-    cmd = REVERSE_PAYLOAD.BASH.format(get_listener_ip(), get_listener_port())
-    # 攻击代码 execute cmd
-</code></pre>
-<p>shell 模式下，只能运行单个 PoC 脚本，控制台会进入 shell 交互模式执行命令及输出</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#008000;font-weight:bold">def</span> <span style="color:#00f">_shell</span>(self):
+    cmd <span style="color:#666">=</span> REVERSE_PAYLOAD<span style="color:#666">.</span>BASH<span style="color:#666">.</span>format(get_listener_ip(), get_listener_port())
+    <span style="color:#408080;font-style:italic"># 攻击代码 execute cmd</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>shell 模式下，只能运行单个 PoC 脚本，控制台会进入 shell 交互模式执行命令及输出</p>
 <h3 id="返回内容">返回内容</h3>
 <p>不管是验证模式或者攻击模式，返回结果 result 中的 key 值必须按照下面的规范来写</p>
-<pre><code class="language-java">'Result':{
-   'DBInfo' :   {'Username': 'xxx', 'Password': 'xxx', 'Salt': 'xxx' , 'Uid':'xxx' , 'Groupid':'xxx'},
-   'ShellInfo': {'URL': 'xxx', 'Content': 'xxx' },
-   'FileInfo':  {'Filename':'xxx','Content':'xxx'},
-   'XSSInfo':   {'URL':'xxx','Payload':'xxx'},
-   'AdminInfo': {'Uid':'xxx' , 'Username':'xxx' , 'Password':'xxx' }
-   'Database':  {'Hostname':'xxx', 'Username':'xxx',  'Password':'xxx', 'DBname':'xxx'},
-   'VerifyInfo':{'URL': 'xxx' , 'Postdata':'xxx' , 'Path':'xxx'}
-   'SiteAttr':  {'Process':'xxx'}
-   'Stdout': 'result output string'
-}
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">&#39;</span>Result<span style="">&#39;</span><span style="color:#666">:{</span>
+   <span style="">&#39;</span>DBInfo<span style="">&#39;</span> <span style="color:#666">:</span>   <span style="color:#666">{</span><span style="">&#39;</span>Username<span style="">&#39;</span><span style="color:#666">:</span> <span style="">&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">,</span> <span style="">&#39;</span>Password<span style="">&#39;</span><span style="color:#666">:</span> <span style="">&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">,</span> <span style="">&#39;</span>Salt<span style="">&#39;</span><span style="color:#666">:</span> <span style="">&#39;</span>xxx<span style="">&#39;</span> <span style="color:#666">,</span> <span style="">&#39;</span>Uid<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span> <span style="color:#666">,</span> <span style="">&#39;</span>Groupid<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">},</span>
+   <span style="">&#39;</span>ShellInfo<span style="">&#39;</span><span style="color:#666">:</span> <span style="color:#666">{</span><span style="">&#39;</span>URL<span style="">&#39;</span><span style="color:#666">:</span> <span style="">&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">,</span> <span style="">&#39;</span>Content<span style="">&#39;</span><span style="color:#666">:</span> <span style="">&#39;</span>xxx<span style="">&#39;</span> <span style="color:#666">},</span>
+   <span style="">&#39;</span>FileInfo<span style="">&#39;</span><span style="color:#666">:</span>  <span style="color:#666">{</span><span style="">&#39;</span>Filename<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="color:#ba2121">&#39;,&#39;</span>Content<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">},</span>
+   <span style="">&#39;</span>XSSInfo<span style="">&#39;</span><span style="color:#666">:</span>   <span style="color:#666">{</span><span style="">&#39;</span>URL<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="color:#ba2121">&#39;,&#39;</span>Payload<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">},</span>
+   <span style="">&#39;</span>AdminInfo<span style="">&#39;</span><span style="color:#666">:</span> <span style="color:#666">{</span><span style="">&#39;</span>Uid<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span> <span style="color:#666">,</span> <span style="">&#39;</span>Username<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span> <span style="color:#666">,</span> <span style="">&#39;</span>Password<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span> <span style="color:#666">}</span>
+   <span style="">&#39;</span>Database<span style="">&#39;</span><span style="color:#666">:</span>  <span style="color:#666">{</span><span style="">&#39;</span>Hostname<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">,</span> <span style="">&#39;</span>Username<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">,</span>  <span style="">&#39;</span>Password<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">,</span> <span style="">&#39;</span>DBname<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">},</span>
+   <span style="">&#39;</span>VerifyInfo<span style="">&#39;</span><span style="color:#666">:{</span><span style="">&#39;</span>URL<span style="">&#39;</span><span style="color:#666">:</span> <span style="">&#39;</span>xxx<span style="">&#39;</span> <span style="color:#666">,</span> <span style="">&#39;</span>Postdata<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span> <span style="color:#666">,</span> <span style="">&#39;</span>Path<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">}</span>
+   <span style="">&#39;</span>SiteAttr<span style="">&#39;</span><span style="color:#666">:</span>  <span style="color:#666">{</span><span style="">&#39;</span>Process<span style="color:#ba2121">&#39;:&#39;</span>xxx<span style="">&#39;</span><span style="color:#666">}</span>
+   <span style="">&#39;</span>Stdout<span style="">&#39;</span><span style="color:#666">:</span> <span style="">&#39;</span>result output string<span style="">&#39;</span>
+<span style="color:#666">}</span>
 
-</code></pre>
-<p>POC中：</p>
-<pre><code class="language-python">            result['VerifyInfo'] = {}
-            result['VerifyInfo']['URL'] = self.url
-            result['VerifyInfo']['SYSTEM'] = apache[0]
-            result['VerifyInfo']['TYPE'] = apache[1]
-</code></pre>
-<h3 id="自定义参数">自定义参数</h3>
+</code></pre></td></tr></table>
+</div>
+</div><p>POC中：</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">            result[<span style="color:#ba2121">&#39;VerifyInfo&#39;</span>] <span style="color:#666">=</span> {}
+            result[<span style="color:#ba2121">&#39;VerifyInfo&#39;</span>][<span style="color:#ba2121">&#39;URL&#39;</span>] <span style="color:#666">=</span> self<span style="color:#666">.</span>url
+            result[<span style="color:#ba2121">&#39;VerifyInfo&#39;</span>][<span style="color:#ba2121">&#39;SYSTEM&#39;</span>] <span style="color:#666">=</span> apache[<span style="color:#666">0</span>]
+            result[<span style="color:#ba2121">&#39;VerifyInfo&#39;</span>][<span style="color:#ba2121">&#39;TYPE&#39;</span>] <span style="color:#666">=</span> apache[<span style="color:#666">1</span>]
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="自定义参数">自定义参数</h3>
 <p>如果你需要编写一个可以交互参数的 PoC 文件(例如有的 PoC 脚本需要填写登录信息，或者任意命令执行时执行任意命令)，那么可以在 PoC 文件中声明一个 <code>_options</code> 方法。一个简单的例子如下</p>
-<pre><code class="language-java">from collections import OrderedDict
-from pocsuite3.api import Output, POCBase, POC_CATEGORY, register_poc, requests, VUL_TYPE
-from pocsuite3.api import OptString
-......
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">from collections <span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">OrderedDict</span>
+from pocsuite3<span style="color:#666">.</span><span style="color:#7d9029">api</span> <span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">Output</span><span style="color:#666">,</span> POCBase<span style="color:#666">,</span> POC_CATEGORY<span style="color:#666">,</span> register_poc<span style="color:#666">,</span> requests<span style="color:#666">,</span> VUL_TYPE
+from pocsuite3<span style="color:#666">.</span><span style="color:#7d9029">api</span> <span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">OptString</span>
+<span style="color:#666">......</span>
 
- def _options(self):
-        o = OrderedDict()
-        o[&quot;username&quot;] = OptString('', description='这个poc需要用户登录，请输入登录账号', require=True)
-        o[&quot;password&quot;] = OptString('', description='这个poc需要用户密码，请输出用户密码', require=False)
-        return o
-</code></pre>
-<p>PoC：</p>
-<pre><code class="language-java">def _options(self):
-        o = OrderedDict()
-        o[&quot;cmd&quot;] = OptString('', description='[+]请输入你想执行的命令', require=True)
-        return o
-</code></pre>
-<p>总结：</p>
+ def <span style="color:#00f">_options</span><span style="color:#666">(</span>self<span style="color:#666">):</span>
+        o <span style="color:#666">=</span> OrderedDict<span style="color:#666">()</span>
+        o<span style="color:#666">[</span><span style="color:#ba2121">&#34;username&#34;</span><span style="color:#666">]</span> <span style="color:#666">=</span> OptString<span style="color:#666">(</span><span style="">&#39;&#39;</span><span style="color:#666">,</span> description<span style="color:#666">=</span><span style="">&#39;</span>这个poc需要用户登录<span style="">，</span>请输入登录账号<span style="">&#39;</span><span style="color:#666">,</span> require<span style="color:#666">=</span>True<span style="color:#666">)</span>
+        o<span style="color:#666">[</span><span style="color:#ba2121">&#34;password&#34;</span><span style="color:#666">]</span> <span style="color:#666">=</span> OptString<span style="color:#666">(</span><span style="">&#39;&#39;</span><span style="color:#666">,</span> description<span style="color:#666">=</span><span style="">&#39;</span>这个poc需要用户密码<span style="">，</span>请输出用户密码<span style="">&#39;</span><span style="color:#666">,</span> require<span style="color:#666">=</span>False<span style="color:#666">)</span>
+        <span style="color:#008000;font-weight:bold">return</span> o
+</code></pre></td></tr></table>
+</div>
+</div><p>PoC：</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">def <span style="color:#00f">_options</span><span style="color:#666">(</span>self<span style="color:#666">):</span>
+        o <span style="color:#666">=</span> OrderedDict<span style="color:#666">()</span>
+        o<span style="color:#666">[</span><span style="color:#ba2121">&#34;cmd&#34;</span><span style="color:#666">]</span> <span style="color:#666">=</span> OptString<span style="color:#666">(</span><span style="">&#39;&#39;</span><span style="color:#666">,</span> description<span style="color:#666">=</span><span style="">&#39;</span><span style="color:#666">[+]</span>请输入你想执行的命令<span style="">&#39;</span><span style="color:#666">,</span> require<span style="color:#666">=</span>True<span style="color:#666">)</span>
+        <span style="color:#008000;font-weight:bold">return</span> o
+</code></pre></td></tr></table>
+</div>
+</div><p>总结：</p>
 <p>简单使用了一下，感觉Pocsuite3来编写漏洞POC或者EXP还是比较方便的，还可以方便自定义插件，但是在使用了自定义参数后必须要使用这点比较不方便，没有找到解决方法可以让仅仅在某个模式才需要键入参数的方法。</p>
 <p>代码地址：</p>
 <p><a href="https://github.com/Luoooio/allCode/blob/main/pocsuite3_pocs/CVE-2021-41773.py">https://github.com/Luoooio/allCode/blob/main/pocsuite3_pocs/CVE-2021-41773.py</a></p>

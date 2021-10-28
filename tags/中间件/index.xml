@@ -33,7 +33,7 @@ Pocsuite3可以进行批量验证、攻击，它有三种模式verify（验证�
 使用%2e即可
 实验发现不行，它会在编码之前先解码一次，解码之后会将..删除，所以换了urllib库。
  导入包 编写 PoC 实现类 DemoPOC，继承自 PoCBase 类
-from pocsuite3.api import Output, POCBase, register_poc, requests, logger from pocsuite3.api import get_listener_ip, get_listener_port from pocsuite3.api import REVERSE_PAYLOAD from pocsuite3.lib.utils import random_str class DemoPOC(POCBase): ...  PoC信息字段填写 vulID = &#39;0&#39; # ssvid ID 如果是提交漏洞的同时提交 PoC，则写成 0 version = &#39;1.0&#39; # 默认为1 author = &#39;Oulaa&#39; # PoC 作者的大名 vulDate = &#39;2021-10-5&#39; # 漏洞公开的时间，不知道就写今天 createDate = &#39;2021-10-5&#39; # 编写 PoC 的日期 updateDate = &#39;2021-10-5&#39; # PoC 更新的时间，默认和编写时间一样 references = [] # 漏洞地址来源，0day 不用写 name = &#39;CVE-2021-41773/CVE-2021-42013 Apache HTTPd (2.</description>
+1 2 3 4 5 6 7 8  from pocsuite3.api import Output, POCBase, register_poc, requests, logger from pocsuite3.api import get_listener_ip, get_listener_port from pocsuite3.api import REVERSE_PAYLOAD from pocsuite3.lib.utils import random_str class DemoPOC(POCBase): ...   PoC信息字段填写 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  vulID = &amp;#39;0&amp;#39; # ssvid ID 如果是提交漏洞的同时提交 PoC，则写成 0 version = &amp;#39;1.</description>
     </item>
     
   </channel>

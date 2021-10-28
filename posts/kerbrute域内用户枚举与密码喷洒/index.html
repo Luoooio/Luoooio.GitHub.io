@@ -14,14 +14,11 @@
   href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
   as="style" onload="this.onload=null;this.rel='stylesheet'">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/stackoverflow-dark.min.css"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
    media="print"
   onload="this.media='all';this.onload=null" crossorigin>
 <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
    crossorigin></script>
-
-  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
-     crossorigin></script>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
    integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
@@ -87,7 +84,7 @@
     },
     "headline": "Kerbrute域内用户枚举与密码喷洒 | Oulaa","datePublished": "2021-10-10T00:00:00+00:00",
     "dateModified": "2021-10-10T00:00:00+00:00",
-    "wordCount":  72 ,
+    "wordCount":  76 ,
     "author": {
         "@type": "Person",
         "name": ["Oulaa"]
@@ -258,12 +255,21 @@
 <p><a href="https://github.com/3gstudent/pyKerbrute">https://github.com/3gstudent/pyKerbrute</a></p>
 <p><a href="https://3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-%E9%80%9A%E8%BF%87Kerberos-pre-auth%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8F%A3%E4%BB%A4%E7%88%86%E7%A0%B4">https://3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-%E9%80%9A%E8%BF%87Kerberos-pre-auth%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8F%A3%E4%BB%A4%E7%88%86%E7%A0%B4</a></p>
 <h3 id="1-用户名枚举"><strong>1. 用户名枚举：</strong></h3>
-<pre><code class="language-python">EnumADUser.py &lt;domainControlerAddr&gt; &lt;domainName&gt; &lt;mode&gt; 
-&lt;mode&gt;: tcp or udp 
-Eg.  
-EnumADUser.py 192.168.1.1 test.com user.txt tcp
-</code></pre>
-<p><img src="assets/image-20210905220510-k376dn0.png" alt="image.png"></p>
+<div class="highlight"><div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">EnumADUser<span style="color:#666">.</span>py <span style="color:#666">&lt;</span>domainControlerAddr<span style="color:#666">&gt;</span> <span style="color:#666">&lt;</span>domainName<span style="color:#666">&gt;</span> <span style="color:#666">&lt;</span>mode<span style="color:#666">&gt;</span> 
+<span style="color:#666">&lt;</span>mode<span style="color:#666">&gt;</span>: tcp <span style="color:#a2f;font-weight:bold">or</span> udp 
+Eg<span style="color:#666">.</span>  
+EnumADUser<span style="color:#666">.</span>py <span style="color:#666">192.168.1.1</span> test<span style="color:#666">.</span>com user<span style="color:#666">.</span>txt tcp
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="assets/image-20210905220510-k376dn0.png" alt="image.png"></p>
 <h3 id="2-密码喷洒"><strong>2. 密码喷洒</strong></h3>
 <p>由于域内策略，连续密码猜测会导致帐户被锁定，爆破的时候一般采用喷洒式的攻击，即密码一样，跑不同的用户名。
 关于口令次数限制，默认为 5 次，具体设置在</p>
