@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>java安全 on Oulaa</title>
-    <link>/tags/java%E5%AE%89%E5%85%A8/</link>
-    <description>Recent content in java安全 on Oulaa</description>
+    <title>java安全基础 on Oulaa</title>
+    <link>/categories/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/</link>
+    <description>Recent content in java安全基础 on Oulaa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Thu, 14 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/java%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JAVA安全基础之动态代理</title>
       <link>/posts/j1/</link>
