@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width">
 
 
-<title>Java安全基础之动态代理 | Oulaa</title>
+<title>Pocsuite3 POC/EXP编写 | Oulaa</title>
 
 <meta name="generator" content="Hugo Eureka 0.8.3" />
 <link rel="stylesheet" href="/css/eureka.min.css">
@@ -55,7 +55,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="动态代理">
+  content="以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -67,7 +67,7 @@
       "item":"/posts/"},{
       "@type": "ListItem",
       "position": 2 ,
-      "name":"Java安全基础之动态代理",
+      "name":"Pocsuite3 POC/EXP编写",
       "item":"/posts/javadongtai/"}]
 }
 </script>
@@ -82,8 +82,8 @@
         "@type": "WebPage",
         "@id": "/posts/javadongtai/"
     },
-    "headline": "Java安全基础之动态代理 | Oulaa","datePublished": "2021-10-12T00:00:00+00:00",
-    "dateModified": "2021-10-12T00:00:00+00:00",
+    "headline": "Pocsuite3 POC\/EXP编写 | Oulaa","datePublished": "2021-10-11T00:00:00+00:00",
+    "dateModified": "2021-10-11T00:00:00+00:00",
     "wordCount":  286 ,
     "author": {
         "@type": "Person",
@@ -97,9 +97,9 @@
             "url": "/images/icon.png"
         }
         },
-    "description": "动态代理"
+    "description": "以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP"
 }
-</script><meta property="og:title" content="Java安全基础之动态代理 | Oulaa" />
+</script><meta property="og:title" content="Pocsuite3 POC/EXP编写 | Oulaa" />
 <meta property="og:type" content="article" />
 
 
@@ -110,7 +110,7 @@
 
 
 
-<meta property="og:description" content="动态代理" />
+<meta property="og:description" content="以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP" />
 
 
 
@@ -126,21 +126,27 @@
 
 
 
-<meta property="article:published_time" content="2021-10-12T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2021-10-11T00:00:00&#43;00:00" />
 
 
-<meta property="article:modified_time" content="2021-10-12T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-10-11T00:00:00&#43;00:00" />
 
 
 
 <meta property="article:section" content="posts" />
 
 
-<meta property="article:tag" content="web" />
+<meta property="article:tag" content="CVE" />
 
-<meta property="article:tag" content="Java安全" />
+<meta property="article:tag" content="中间件" />
 
 
+
+
+
+<meta property="og:see_also" content="/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/" />
+
+<meta property="og:see_also" content="/posts/41773/" />
 
 
 
@@ -219,11 +225,11 @@
 <div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
     <div
         class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
-        <h1 class="font-bold text-3xl text-primary-text">Java安全基础之动态代理</h1>
+        <h1 class="font-bold text-3xl text-primary-text">Pocsuite3 POC/EXP编写</h1>
         <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
     <div class="mr-6 my-2">
         <i class="fas fa-calendar mr-1"></i>
-        <span>2021-10-12</span>
+        <span>2021-10-11</span>
     </div>
     <div class="mr-6 my-2">
         <i class="fas fa-clock mr-1"></i>
@@ -447,9 +453,9 @@
         
         <div class="my-4">
     
-    <a href="/tags/web/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#web</a>
+    <a href="/tags/cve/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#CVE</a>
     
-    <a href="/tags/java%E5%AE%89%E5%85%A8/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#Java安全</a>
+    <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#中间件</a>
     
 </div>
         
@@ -546,6 +552,20 @@
     
 
     
+    
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded p-6">
+        <h2 class="text-lg font-semibold mb-4">See Also</h2>
+        <div class="content">
+            
+            <a href="/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/">Pocsuite3 POC/EXP编写</a>
+            <br />
+            
+            <a href="/posts/41773/">CVE-2021-41773 Apache HTTPd (2.4.49)</a>
+            <br />
+            
+        </div>
+    </div>
     
 </div>
 <script>

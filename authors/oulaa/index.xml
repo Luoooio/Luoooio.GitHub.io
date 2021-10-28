@@ -8,11 +8,11 @@
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Tue, 12 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/authors/oulaa/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/authors/oulaa/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Java安全基础之动态代理</title>
+      <title>Pocsuite3 POC/EXP编写</title>
       <link>/posts/javadongtai/</link>
-      <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>/posts/javadongtai/</guid>
       <description>代理对象，是我们为了在原有对象的基础上实现功能的增强、修改等而为原有对象新建立的对象，比如，我们有一个对象A，现在我们试图在对象A进行操作之前添加时间记录，那么我们就可以给对象A创建一个代理对象Aplus，它的方法调用和A没有任何区别，只是会输出时间记录。那么实现了时间记录的对象Aplus就是代理对象，原对象A就是目标对象。

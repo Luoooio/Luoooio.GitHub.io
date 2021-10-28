@@ -11,6 +11,29 @@
     <lastBuildDate>Mon, 11 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pocsuite3 POC/EXP编写</title>
+      <link>/posts/javadongtai/</link>
+      <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/javadongtai/</guid>
+      <description>代理对象，是我们为了在原有对象的基础上实现功能的增强、修改等而为原有对象新建立的对象，比如，我们有一个对象A，现在我们试图在对象A进行操作之前添加时间记录，那么我们就可以给对象A创建一个代理对象Aplus，它的方法调用和A没有任何区别，只是会输出时间记录。那么实现了时间记录的对象Aplus就是代理对象，原对象A就是目标对象。
+一、静态代理 想要实现一个简单的代理，我们最直观的想法是直接为目标类建立一个代理类，它接受一个目标类对象，并且可以实现增强操作。
+比如：
+但是这样很显然有一个问题，那就是有多少个目标类就需要创建多少个对应的代理类，并且要实现同样的接口，非常不方便。
+二、动态代理 如果抛开实现细节，简单地来说的话，动态代理实现了根据目标对象接口来新建对象，并且可以将新建对象与（代理对象）与目标联系起来。
+JDK提供了java.lang.reflect.InvocationHandler接口和 java.lang.reflect.Proxy类配合完成动态代理功能。
+我们知道，接口是无法新建对象的（它没有构造方法），所以我们需要使用java.lang.reflect.Proxy类得到代理对象：
+Proxy有个静态方法：getProxyClass(ClassLoader, interfaces)，只要你给它传入类加载器和一组接口，它就给你返回代理Class对象。
+由此该Class对象是从接口对象实现的，作为接口无法新建实例的替代。
+所以Proxy.getProxyClass()这个方法的本质就是：以Class造Class。
+在造出原有接口的构造方法以实现了可以新接口对象之后，还要考虑新的对象如何去实现方法的调用，这里的调用肯定是对目标对象的方法调用，所以有了InvocationHandler类，它可以通过反射去调用方法。
+在$Proxy0 类中，是存在一个字段handler的，它就是InvocationHandler对象，每一次对
+$Proxy0对象（也就是代理对象）调用某个方法的时候，它就会被导向handler.invoke方法。
+以下是一个demo，实现了一个简单的动态代理：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59  package org.</description>
+    </item>
+    
+    <item>
+      <title>Pocsuite3 POC/EXP编写</title>
       <link>/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/</link>
       <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
       
