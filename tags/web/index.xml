@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>web安全 on Oulaa</title>
-    <link>/categories/web%E5%AE%89%E5%85%A8/</link>
-    <description>Recent content in web安全 on Oulaa</description>
+    <title>web on Oulaa</title>
+    <link>/tags/web/</link>
+    <description>Recent content in web on Oulaa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Tue, 12 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/web%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/web/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java安全基础之动态代理</title>
       <link>/posts/javadongtai/</link>
@@ -30,33 +30,6 @@ Proxy有个静态方法：getProxyClass(ClassLoader, interfaces)，只要你给�
 $Proxy0对象（也就是代理对象）调用某个方法的时候，它就会被导向handler.invoke方法。
 以下是一个demo，实现了一个简单的动态代理：
 package org.example; import java.lang.reflect.Constructor; import java.lang.reflect.Method; import java.lang.reflect.Proxy; import java.rmi.Naming; import java.rmi.Remote; import java.rmi.RemoteException; import java.rmi.registry.LocateRegistry; import java.rmi.registry.Registry; import java.rmi.server.UnicastRemoteObject; import java.lang.reflect.InvocationHandler; /** * Hello world! * */ //interface RMIServerTest extends Remote {String Pring() throws RemoteException; } //class RMIServerTestServer implements RMIServerTest { // @Override // public String Pring() throws RemoteException { // System.out.println(&amp;quot;hello&amp;quot;); // return &amp;quot;this is a test&amp;quot;; // } //} public class App { public static void main( String[] args ) throws Exception { //参数1是随意的类加载器，参数2是代理对象的接口。hellProxyClazz 是org.</description>
-    </item>
-    
-    <item>
-      <title>Pocsuite3 POC/EXP编写</title>
-      <link>/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/</link>
-      <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/</guid>
-      <description>Pocsuite3 是一个POC框架，用于漏洞的验证、攻击等等
-使用 https://github.com/knownsec/pocsuite3/blob/master/docs/USAGE.md
-Pocsuite3可以进行批量验证、攻击，它有三种模式verify（验证）、attack（攻击）、shell（获得shell），并且可以设置多种参数。
-编写POC 这里以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP：
-思路：
-分为linux与windows：
- linux  发送post包检测是否可以RCE
-如果不可以的话发送get包检测是否可以目录穿越
-读取对象:/etc/passwd
-关键字：root
- windows  由于windows的apache无法直接调用cmd执行命令，只能通过php.exe之类的来解析，所以不考虑RCE，只判断是否可以目录穿越读取文件。
-读取对象：c:/Windows/win.ini
-关键字：extensions
-由于两个RCE仅仅是URL编码的不同，所以这里直接使用二次URL编码来兼容两个RCE。
- 注意：python的request请求包会自动进行一次编码，所以编写poc的时候不需要二次编码
-使用%2e即可
-实验发现不行，它会在编码之前先解码一次，解码之后会将..删除，所以换了urllib库。
- 导入包 编写 PoC 实现类 DemoPOC，继承自 PoCBase 类
-from pocsuite3.api import Output, POCBase, register_poc, requests, logger from pocsuite3.api import get_listener_ip, get_listener_port from pocsuite3.api import REVERSE_PAYLOAD from pocsuite3.lib.utils import random_str class DemoPOC(POCBase): ...  PoC信息字段填写 vulID = &#39;0&#39; # ssvid ID 如果是提交漏洞的同时提交 PoC，则写成 0 version = &#39;1.0&#39; # 默认为1 author = &#39;Oulaa&#39; # PoC 作者的大名 vulDate = &#39;2021-10-5&#39; # 漏洞公开的时间，不知道就写今天 createDate = &#39;2021-10-5&#39; # 编写 PoC 的日期 updateDate = &#39;2021-10-5&#39; # PoC 更新的时间，默认和编写时间一样 references = [] # 漏洞地址来源，0day 不用写 name = &#39;CVE-2021-41773/CVE-2021-42013 Apache HTTPd (2.</description>
     </item>
     
   </channel>
