@@ -67,21 +67,21 @@
     "itemListElement":[{
             "@type":"ListItem",
             "position":  1 ,
-            "name": "TransformedMap利用链分析",
-            "description": "TransformedMap利用链是最早的Java反序列化利用链之一",
-            "url": "/posts/transformedmap%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/"
+            "name": "CVE-2021-22205 复现",
+            "description": "CVE-2021-22205 是GitLab在4月份爆出的RCE，实际上是依托于CVE-2021-22204，也就是ExifTool的命令执行",
+            "url": "/posts/22205/"
         },{
             "@type":"ListItem",
             "position":  2 ,
-            "name": "JAVA安全基础之动态代理",
-            "description": "动态代理是利用反射机制在运行时创建代理类…………",
-            "url": "/posts/j1/"
+            "name": "CC1利用链分析",
+            "description": "TransformedMap利用链是最早的Java反序列化利用链",
+            "url": "/posts/transformedmap%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/"
         },{
             "@type":"ListItem",
             "position":  3 ,
-            "name": "Pocsuite3 POC/EXP编写",
-            "description": "以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP",
-            "url": "/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/"
+            "name": "JAVA安全基础之动态代理",
+            "description": "动态代理是利用反射机制在运行时创建代理类…………",
+            "url": "/posts/j1/"
         }
     ]
 }
@@ -116,7 +116,7 @@
 
 
 
-<meta property="og:updated_time" content="2021-10-16T00:00:00&#43;00:00" />
+<meta property="og:updated_time" content="2021-10-17T00:00:00&#43;00:00" />
 
 
 
@@ -207,11 +207,52 @@
   
   <div class="w-full ">
     <div class="mb-4">
-  <a href="/posts/transformedmap%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/" class="font-bold text-xl hover:text-eureka">TransformedMap利用链分析</a>
+  <a href="/posts/22205/" class="font-bold text-xl hover:text-eureka">CVE-2021-22205 复现</a>
 </div>
 <div class="content">
   
-    TransformedMap利用链是最早的Java反序列化利用链之一
+    CVE-2021-22205 是GitLab在4月份爆出的RCE，实际上是依托于CVE-2021-22204，也就是ExifTool的命令执行
+  
+</div>
+
+<div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
+    <div class="mr-6 my-2">
+        <i class="fas fa-calendar mr-1"></i>
+        <span>2021-10-17</span>
+    </div>
+    <div class="mr-6 my-2">
+        <i class="fas fa-clock mr-1"></i>
+        <span>1 min read</span>
+    </div>
+    
+    
+    <div class="mr-6 my-2">
+        <i class="fas fa-folder mr-1"></i>
+        
+        <a href="/categories/web/" class="hover:text-eureka">web</a>
+        
+    </div>
+    
+
+    
+</div>
+
+  </div>
+
+  
+</div>
+  </div>
+  
+  <div class="py-6">
+    <div class="flex flex-col-reverse lg:flex-row justify-between">
+  
+  <div class="w-full ">
+    <div class="mb-4">
+  <a href="/posts/transformedmap%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/" class="font-bold text-xl hover:text-eureka">CC1利用链分析</a>
+</div>
+<div class="content">
+  
+    TransformedMap利用链是最早的Java反序列化利用链
   
 </div>
 
@@ -284,47 +325,6 @@
 </div>
   </div>
   
-  <div class="py-6">
-    <div class="flex flex-col-reverse lg:flex-row justify-between">
-  
-  <div class="w-full ">
-    <div class="mb-4">
-  <a href="/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/" class="font-bold text-xl hover:text-eureka">Pocsuite3 POC/EXP编写</a>
-</div>
-<div class="content">
-  
-    以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP
-  
-</div>
-
-<div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
-    <div class="mr-6 my-2">
-        <i class="fas fa-calendar mr-1"></i>
-        <span>2021-10-11</span>
-    </div>
-    <div class="mr-6 my-2">
-        <i class="fas fa-clock mr-1"></i>
-        <span>3 min read</span>
-    </div>
-    
-    
-    <div class="mr-6 my-2">
-        <i class="fas fa-folder mr-1"></i>
-        
-        <a href="/categories/web%E5%AE%89%E5%85%A8/" class="hover:text-eureka">web安全</a>
-        
-    </div>
-    
-
-    
-</div>
-
-  </div>
-
-  
-</div>
-  </div>
-  
 </div>
 
 
@@ -344,10 +344,13 @@
         <a href="/posts/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
       </li>
       <li class="page-item">
+        <a href="/posts/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
         <a href="/posts/page/2/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/posts/page/2/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/posts/page/3/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul>
 

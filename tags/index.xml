@@ -8,22 +8,40 @@
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Sat, 16 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>java安全</title>
-      <link>/tags/java%E5%AE%89%E5%85%A8/</link>
-      <pubDate>Sat, 16 Oct 2021 00:00:00 +0000</pubDate>
+      <title>gitlab</title>
+      <link>/tags/gitlab/</link>
+      <pubDate>Sun, 17 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>/tags/java%E5%AE%89%E5%85%A8/</guid>
+      <guid>/tags/gitlab/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rce</title>
+      <link>/tags/rce/</link>
+      <pubDate>Sun, 17 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rce/</guid>
       <description></description>
     </item>
     
     <item>
       <title>web</title>
       <link>/tags/web/</link>
-      <pubDate>Sat, 16 Oct 2021 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 17 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>java安全</title>
+      <link>/tags/java%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Sat, 16 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/java%E5%AE%89%E5%85%A8/</guid>
       <description></description>
     </item>
     
