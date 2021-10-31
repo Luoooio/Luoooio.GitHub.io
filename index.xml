@@ -15,7 +15,7 @@
       <pubDate>Sun, 17 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>/posts/22205/</guid>
-      <description>CVE-2021-22205 是GitLab在4月份爆出的RCE，实际上是依托于CVE-2021-22204，也就是ExifTool的命令执行。而GitLab刚好上次hw的时候碰到过，但当时的对方gitlab版本比较高没有利用成功，但当时看的时候比较有意思，这里重新复现一下。
+      <description>CVE-2021-22205 是GitLab在4月份爆出的RCE，实际上是依托于CVE-2021-22204，也就是ExifTool的命令执行。而GitLab刚好上次hw的时候碰到过，虽然当时的对方gitlab版本比较高没有利用成功，但当时看的时候比较有意思，这里重新复现一下。
 一、漏洞原理 Gitlab 是使用Ruby与Go编写的git软件，而CVE-2021-22205的漏洞原理可以参见
 https://devcraft.io/2021/05/04/exiftool-arbitrary-code-execution-cve-2021-22204.html
 https://hackerone.com/reports/1154542
