@@ -3,10 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/authors/</loc>
-    <lastmod>2021-10-17T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/</loc>
-    <lastmod>2021-10-17T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/authors/oulaa/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/xss/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/xss1/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/%E7%BA%A2%E9%98%9F/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/%E9%92%93%E9%B1%BC/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/22205/</loc>
     <lastmod>2021-10-17T00:00:00+00:00</lastmod>
@@ -14,19 +38,7 @@
     <loc>/tags/gitlab/</loc>
     <lastmod>2021-10-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/</loc>
-    <lastmod>2021-10-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/authors/oulaa/</loc>
-    <lastmod>2021-10-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2021-10-17T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tags/rce/</loc>
-    <lastmod>2021-10-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
     <lastmod>2021-10-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/web/</loc>
@@ -112,13 +124,5 @@
     <loc>/authors/hugo-authors/</loc>
   </url><url>
     <loc>/series/</loc>
-  </url><url>
-    <loc>/tags/xss/</loc>
-  </url><url>
-    <loc>/posts/xss1/</loc>
-  </url><url>
-    <loc>/categories/%E7%BA%A2%E9%98%9F/</loc>
-  </url><url>
-    <loc>/tags/%E9%92%93%E9%B1%BC/</loc>
   </url>
 </urlset>

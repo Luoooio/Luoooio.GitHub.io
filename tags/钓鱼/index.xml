@@ -7,11 +7,12 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
-</copyright><atom:link href="/tags/%E9%92%93%E9%B1%BC/index.xml" rel="self" type="application/rss+xml" />
+</copyright>
+    <lastBuildDate>Sun, 07 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E9%92%93%E9%B1%BC/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>XSS钓鱼实现水坑攻击</title>
       <link>/posts/xss1/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>/posts/xss1/</guid>
       <description>一、简述 XSS我们不陌生，利用XSS可以做到许多的事，比如盗取cookie、钓鱼、获得内网地址、DDOS等等。这里简单学习一下利用XSS钓鱼。

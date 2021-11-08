@@ -8,7 +8,16 @@
     <language>en</language>
     <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Sun, 17 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>红队</title>
+      <link>/categories/%E7%BA%A2%E9%98%9F/</link>
+      <pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/%E7%BA%A2%E9%98%9F/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>web</title>
       <link>/categories/web/</link>
@@ -51,15 +60,6 @@
       <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>/categories/%E5%A4%8D%E7%8E%B0/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>红队</title>
-      <link>/categories/%E7%BA%A2%E9%98%9F/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/%E7%BA%A2%E9%98%9F/</guid>
       <description></description>
     </item>
     
