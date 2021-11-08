@@ -10,10 +10,10 @@
 </copyright><atom:link href="/categories/%E7%BA%A2%E9%98%9F/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>XSS钓鱼实现水坑攻击</title>
-      <link>/posts/xss0/</link>
+      <link>/posts/xss1/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/posts/xss0/</guid>
+      <guid>/posts/xss1/</guid>
       <description>一、简述 XSS我们不陌生，利用XSS可以做到许多的事，比如盗取cookie、钓鱼、获得内网地址、DDOS等等。这里简单学习一下利用XSS钓鱼。
 二、原理 一般需要一个存储型XSS。利用存储型XSS可以实现的目标可以有两种：
  1.直接诱导目标下载木马，达到直接上线的目的。这种情况最常见于Flash钓鱼，并且以此衍生各种版本，比如google崩溃页面、下载某插件之后才能访问等等。 2.诱导目标输入账号密码，达到窃取信息的目的。  这两种攻击方式需要考虑到下载之后如何自动判断上线，并且撤销钓鱼页面（也就是收杆），防止被发现攻击。
