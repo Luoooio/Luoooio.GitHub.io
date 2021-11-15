@@ -11,10 +11,10 @@
     <lastBuildDate>Mon, 15 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PetitPotam与printbug.py强制NTLM认证</title>
-      <link>/posts/petitpotam/</link>
+      <link>/posts/petit/</link>
       <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>/posts/petitpotam/</guid>
+      <guid>/posts/petit/</guid>
       <description>PetitPotam Lionel Gilles开发的名为PetitPotam的概念证明触发。这是通过利用MS-EFSRPC协议进行 API 调用 (EfsRpcOpenFileRaw) 来实现的，该调用将触发目标上的计算机帐户向另一个系统进行身份验证。它可以通过提供标准用户凭据并使用配置 NTLM 中继的系统 IP 和 目标的 IP 地址来执行。
 https://github.com/topotam/PetitPotam
 python脚本的使用
